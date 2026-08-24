@@ -84,16 +84,24 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Role Toggle Selector */}
         <div className="flex justify-center mb-8">
-          <div className="inline-flex p-1.5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-md">
+          <div
+            role="tablist"
+            aria-label="Audience Type Selector"
+            className="inline-flex p-1.5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-md"
+          >
             <button
+              id="role-tab-creator"
+              role="tab"
+              aria-selected={activeRole === 'creator'}
+              aria-controls="role-panel-content"
               onClick={() => setActiveRole('creator')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-5 py-3 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeRole === 'creator'
                   ? 'bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-lg shadow-rose-500/25'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              <Instagram className="w-4 h-4" />
+              <Instagram className="w-4 h-4" aria-hidden="true" />
               <span>I'm an Instagram User</span>
               <span className="hidden sm:inline-block text-[10px] uppercase tracking-wider px-1.5 py-0.5 bg-black/30 rounded font-semibold">
                 Get Paid
@@ -101,14 +109,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </button>
 
             <button
+              id="role-tab-business"
+              role="tab"
+              aria-selected={activeRole === 'business'}
+              aria-controls="role-panel-content"
               onClick={() => setActiveRole('business')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-5 py-3 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeRole === 'business'
                   ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-600/25'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              <Store className="w-4 h-4" />
+              <Store className="w-4 h-4" aria-hidden="true" />
               <span>I'm a Brand, App or Business</span>
               <span className="hidden sm:inline-block text-[10px] uppercase tracking-wider px-1.5 py-0.5 bg-black/30 rounded font-semibold">
                 Advertise
@@ -117,7 +129,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div
+          id="role-panel-content"
+          role="tabpanel"
+          aria-labelledby={activeRole === 'creator' ? 'role-tab-creator' : 'role-tab-business'}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center"
+        >
           {/* Main Copy Column */}
           <div className="lg:col-span-7 text-center lg:text-left">
             {/* Live Pill */}
@@ -126,7 +143,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span className="font-semibold text-white">
                 {activeRole === 'creator' ? 'Get paid cash per 100 verified story views' : 'Pay strictly for verified views — all ad formats'}
               </span>
-              <span className="text-slate-500">•</span>
+              <span className="text-slate-400">•</span>
               <span className="text-rose-300 font-medium">DTC, Apps, Drops & Local</span>
             </div>
 
@@ -340,20 +357,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-xs font-semibold mb-2">
+                    <label htmlFor="hero-demo-views-slider" className="flex justify-between text-xs font-semibold mb-2">
                       <span className="text-slate-300">Your average Story Views:</span>
                       <span className="text-rose-400 font-bold font-mono">{demoViews} views</span>
-                    </div>
+                    </label>
                     <input
+                      id="hero-demo-views-slider"
                       type="range"
                       min={100}
                       max={2000}
                       step={50}
                       value={demoViews}
+                      aria-label="Average Story Views Simulator"
                       onChange={(e) => setDemoViews(Number(e.target.value))}
                       className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-rose-500"
                     />
-                    <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                    <div className="flex justify-between text-[10px] text-slate-400 mt-1">
                       <span>100 views</span>
                       <span>1,000 views</span>
                       <span>2,000 views</span>

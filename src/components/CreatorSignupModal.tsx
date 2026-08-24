@@ -200,6 +200,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
       className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
       role="dialog"
       aria-modal="true"
+      aria-labelledby="creator-modal-title"
     >
       <div
         onClick={(e) => e.stopPropagation()}
@@ -209,15 +210,15 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
         <div className="p-5 sm:p-6 border-b border-slate-800 bg-gradient-to-r from-rose-950/50 via-slate-900 to-slate-900 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center text-white shadow-md">
-              <Instagram className="w-5 h-5" />
+              <Instagram className="w-5 h-5" aria-hidden="true" />
             </div>
             <div>
               <span className="text-[11px] font-bold text-rose-400 uppercase tracking-wider">
                 Creator Early Access
               </span>
-              <h3 className="text-lg sm:text-xl font-bold text-white font-['Space_Grotesk'] leading-tight">
+              <h2 id="creator-modal-title" className="text-lg sm:text-xl font-bold text-white font-['Space_Grotesk'] leading-tight">
                 Get Paid for Story Views
-              </h3>
+              </h2>
             </div>
           </div>
           <button
@@ -226,7 +227,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
             aria-label="Close dialog"
             className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-all cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
 
@@ -240,9 +241,9 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
               </div>
 
               <div>
-                <h4 className="text-2xl font-extrabold text-white font-['Space_Grotesk']">
+                <h3 className="text-2xl font-extrabold text-white font-['Space_Grotesk']">
                   You're in the Launch Queue! 🎉
-                </h4>
+                </h3>
                 <p className="text-sm text-slate-300 mt-1 max-w-md mx-auto">
                   Welcome aboard, <strong className="text-white">@{submittedCreator.instagramHandle}</strong>. You are{' '}
                   <span className="text-rose-400 font-bold font-mono">#{submittedCreator.queueNumber}</span> in line for brand & app campaign invites in {submittedCreator.city}.
@@ -311,6 +312,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                 <div className="flex gap-2 pt-1">
                   <input
                     readOnly
+                    aria-label="Your referral link"
                     value={`${window.location.origin}?ref=${submittedCreator.instagramHandle}`}
                     className="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-300 font-mono truncate"
                   />
@@ -345,7 +347,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
             /* REGISTRATION FORM */
             <form onSubmit={handleSubmit} className="space-y-5">
               {errorMsg && (
-                <div className="p-3 rounded-xl bg-rose-950/60 border border-rose-500/50 text-xs text-rose-200 font-medium">
+                <div className="p-3 rounded-xl bg-rose-950/60 border border-rose-500/50 text-xs text-rose-200 font-medium" role="alert">
                   {errorMsg}
                 </div>
               )}
@@ -353,10 +355,11 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
               {/* Name & Handle */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                  <label htmlFor="creator-full-name" className="block text-xs font-bold text-slate-300 mb-1.5">
                     Your Name <span className="text-rose-400">*</span>
                   </label>
                   <input
+                    id="creator-full-name"
                     type="text"
                     required
                     placeholder="e.g. Maya Lin"
@@ -367,12 +370,13 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                  <label htmlFor="creator-instagram-handle" className="block text-xs font-bold text-slate-300 mb-1.5">
                     Instagram Handle <span className="text-rose-400">*</span>
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-2.5 text-slate-500 font-bold text-sm">@</span>
+                    <span className="absolute left-3.5 top-2.5 text-slate-400 font-bold text-sm" aria-hidden="true">@</span>
                     <input
+                      id="creator-instagram-handle"
                       type="text"
                       required
                       placeholder="your_handle"
@@ -387,10 +391,11 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
               {/* City & Neighborhood */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                  <label htmlFor="creator-city" className="block text-xs font-bold text-slate-300 mb-1.5">
                     City & State / Country <span className="text-rose-400">*</span>
                   </label>
                   <input
+                    id="creator-city"
                     type="text"
                     required
                     placeholder="e.g. Austin, TX"
@@ -401,10 +406,11 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                  <label htmlFor="creator-neighborhood" className="block text-xs font-bold text-slate-300 mb-1.5">
                     Neighborhood / Area
                   </label>
                   <input
+                    id="creator-neighborhood"
                     type="text"
                     placeholder="e.g. South Congress / East Side"
                     value={neighborhood}
@@ -417,21 +423,27 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
               {/* Typical Story Views Slider */}
               <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800/90 space-y-2">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="font-bold text-slate-300">Average Story Views:</span>
+                  <label htmlFor="creator-typical-views-slider" className="font-bold text-slate-300">Average Story Views:</label>
                   <span className="font-mono font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded">
                     ~{avgViews} views (est. ${((avgViews / 100) * 6.5).toFixed(2)} / story)
                   </span>
                 </div>
                 <input
+                  id="creator-typical-views-slider"
                   type="range"
                   min={50}
                   max={2500}
                   step={25}
                   value={avgViews}
+                  aria-label="Average Story Views"
+                  aria-valuemin={50}
+                  aria-valuemax={2500}
+                  aria-valuenow={avgViews}
+                  aria-valuetext={`Approximately ${avgViews} views`}
                   onChange={(e) => setAvgViews(Number(e.target.value))}
                   className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-rose-500"
                 />
-                <div className="flex justify-between text-[10px] text-slate-500 font-medium">
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
                   <span>50 views (micro)</span>
                   <span>1,000 views</span>
                   <span>2,500+ views</span>
@@ -498,10 +510,11 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
               {/* Email & Phone */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                  <label htmlFor="creator-email-input" className="block text-xs font-bold text-slate-300 mb-1.5">
                     Email (for campaign invites) <span className="text-rose-400">*</span>
                   </label>
                   <input
+                    id="creator-email-input"
                     type="email"
                     required
                     placeholder="you@gmail.com"
@@ -512,10 +525,11 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                  <label htmlFor="creator-phone-input" className="block text-xs font-bold text-slate-300 mb-1.5">
                     Phone / SMS (optional for urgent alerts)
                   </label>
                   <input
+                    id="creator-phone-input"
                     type="tel"
                     placeholder="(555) 000-0000"
                     value={phone}
@@ -528,10 +542,11 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
               {/* Payout Method */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                  <label htmlFor="creator-payout-method-select" className="block text-xs font-bold text-slate-300 mb-1.5">
                     Preferred Payout Method
                   </label>
                   <select
+                    id="creator-payout-method-select"
                     value={payoutMethod}
                     onChange={(e) => setPayoutMethod(e.target.value as PayoutMethod)}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white cursor-pointer"
@@ -545,10 +560,11 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                  <label htmlFor="creator-payout-handle-input" className="block text-xs font-bold text-slate-300 mb-1.5">
                     Payout Username / Handle
                   </label>
                   <input
+                    id="creator-payout-handle-input"
                     type="text"
                     placeholder="@your-payment-handle"
                     value={payoutHandle}
@@ -559,7 +575,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
               </div>
 
               {/* Privacy / Terms notice */}
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-slate-400">
                 🔒 We will never post on your behalf or ask for your password. By signing up, you agree to receive brand & sponsorship match notifications.
               </p>
 
@@ -579,7 +595,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                   <button
                     type="button"
                     onClick={resetAndClose}
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-slate-950/60 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="w-full py-3 sm:py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-slate-950/60 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <X className="w-3.5 h-3.5" />
                     <span>Cancel & Close</span>

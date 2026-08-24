@@ -30,13 +30,21 @@ export const FAQSection: React.FC = () => {
 
           {/* Toggle Tab */}
           <div className="mt-6 flex justify-center">
-            <div className="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800">
+            <div
+              role="tablist"
+              aria-label="FAQ Category Selector"
+              className="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800"
+            >
               <button
+                id="faq-tab-creator"
+                role="tab"
+                aria-selected={activeFaqTab === 'creator'}
+                aria-controls="faq-accordion-panel"
                 onClick={() => {
                   setActiveFaqTab('creator');
                   setOpenIndex(0);
                 }}
-                className={`px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                className={`px-5 py-3 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   activeFaqTab === 'creator'
                     ? 'bg-rose-500 text-white shadow-md'
                     : 'text-slate-400 hover:text-white'
@@ -45,11 +53,15 @@ export const FAQSection: React.FC = () => {
                 Creator FAQs
               </button>
               <button
+                id="faq-tab-business"
+                role="tab"
+                aria-selected={activeFaqTab === 'business'}
+                aria-controls="faq-accordion-panel"
                 onClick={() => {
                   setActiveFaqTab('business');
                   setOpenIndex(0);
                 }}
-                className={`px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                className={`px-5 py-3 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   activeFaqTab === 'business'
                     ? 'bg-purple-600 text-white shadow-md'
                     : 'text-slate-400 hover:text-white'
@@ -62,27 +74,43 @@ export const FAQSection: React.FC = () => {
         </div>
 
         {/* FAQ Accordion */}
-        <div className="space-y-3">
+        <div
+          id="faq-accordion-panel"
+          role="tabpanel"
+          aria-labelledby={activeFaqTab === 'creator' ? 'faq-tab-creator' : 'faq-tab-business'}
+          className="space-y-3"
+        >
           {currentFaqs.map((faq, index) => {
             const isOpen = openIndex === index;
+            const buttonId = `faq-btn-${activeFaqTab}-${index}`;
+            const panelId = `faq-panel-${activeFaqTab}-${index}`;
             return (
               <div
                 key={faq.q}
                 className="rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden transition-all"
               >
                 <button
+                  id={buttonId}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
                   onClick={() => toggleFaq(index)}
                   className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-800/40 transition-colors"
                 >
                   <span className="font-bold text-white text-sm sm:text-base">{faq.q}</span>
                   <ChevronDown
+                    aria-hidden="true"
                     className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
                       isOpen ? 'transform rotate-180 text-rose-400' : ''
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60">
+                  <div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={buttonId}
+                    className="px-5 pb-5 pt-1 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60"
+                  >
                     {faq.a}
                   </div>
                 )}
@@ -98,9 +126,9 @@ export const FAQSection: React.FC = () => {
               <Mail className="w-3.5 h-3.5" />
               <span>Direct Support & Inquiries</span>
             </div>
-            <h4 className="text-lg font-bold text-white font-['Space_Grotesk']">
+            <h3 className="text-lg font-bold text-white font-['Space_Grotesk']">
               Still have questions or need custom campaign terms?
-            </h4>
+            </h3>
             <p className="text-xs text-slate-300">
               Reach our managing inbox directly at <strong className="text-white font-mono">{MAIN_EMAIL}</strong>. We review creator profiles and advertiser proposals daily.
             </p>

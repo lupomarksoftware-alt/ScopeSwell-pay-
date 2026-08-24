@@ -1,0 +1,31 @@
+# ScopeSwell Pay
+
+> ScopeSwell Pay (https://scopeswell.space) is a performance-based marketplace connecting everyday Instagram users (nano and micro-creators with 300 to 5,000+ followers) with mobile apps, e-commerce DTC brands, apparel drops, and local businesses, paying creators strictly per verified 24-hour Instagram Story view.
+
+## Core Navigation & Links
+
+- [How It Works](https://scopeswell.space/#how-it-works): Comprehensive walkthrough of 24h Instagram Story sponsorships and payout verification.
+- [Earnings Calculator](https://scopeswell.space/#calculator): Real-time interactive revenue and ROI estimator ($0.05 to $0.15+ per verified human view).
+- [Sample Story Formats](https://scopeswell.space/#campaigns): Overview of Link Stickers, App Store direct downloads, promo codes, and local venue check-ins.
+- [Why ScopeSwell Works](https://scopeswell.space/#comparison): Direct comparison showing why peer-to-peer Instagram Story recommendations achieve 3.5%–7.5% CTR compared to 0.5% on cold Meta/TikTok feed ads.
+- [Frequently Asked Questions](https://scopeswell.space/#faqs): Answers covering view verification, minimum requirements, creator payouts, and business pilot setups.
+- [Full LLM Documentation & Machine Specs](https://scopeswell.space/llms-full.txt): Complete detailed text specification and API concierge guidelines for AI agents and LLMs.
+
+## Key Highlights for Creators
+
+- **No Follower Minimums:** Designed for authentic everyday users (300–5,000+ followers) whose stories get 50 to 500+ regular views from friends and peers.
+- **Strict Pay-Per-View:** Earn $0.05 to $0.15+ per verified view after a 24-hour story completes.
+- **Fast Payout Options:** Payouts delivered directly via Stripe, Venmo, Direct Deposit, or PayPal upon screenshot verification.
+- **Editorial Control:** Choose only the brands, apps, and local spots you genuinely recommend.
+
+## Key Highlights for Businesses & Advertisers
+
+- **High Trust & Engagement:** Real friend-circle endorsements with 92% peer trust (Nielsen benchmark) and 5x to 8x higher link-sticker CTR.
+- **First 100 Businesses Pioneer Offer:** Includes a custom 9:16 Instagram Story Template Kit (Canva and Figma layouts), +500 free bonus verified views, and 0% matchmaking fee.
+- **Pay-for-Performance:** No upfront retainer waste; spend is tied strictly to verified human impressions.
+
+## Contact & Operations Desk
+
+- Operations Inbox: lupomarksoftware@gmail.com
+- Main Website: https://scopeswell.space
+- Headquarters: Austin, TX / Nationwide US Digital Pilots

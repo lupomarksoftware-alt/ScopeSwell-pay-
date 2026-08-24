@@ -33,10 +33,18 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
 
           {/* Tab Switcher */}
           <div className="mt-6 flex justify-center">
-            <div className="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800">
+            <div
+              role="tablist"
+              aria-label="Workflow audience selector"
+              className="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800"
+            >
               <button
+                id="tab-creator-workflow"
+                role="tab"
+                aria-selected={activeTab === 'creator'}
+                aria-controls="panel-creator-workflow"
                 onClick={() => setActiveTab('creator')}
-                className={`px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                className={`px-5 py-3 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   activeTab === 'creator'
                     ? 'bg-rose-500 text-white shadow-md'
                     : 'text-slate-400 hover:text-white'
@@ -45,8 +53,12 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
                 For Everyday Instagram Users (Earn)
               </button>
               <button
+                id="tab-business-workflow"
+                role="tab"
+                aria-selected={activeTab === 'business'}
+                aria-controls="panel-business-workflow"
                 onClick={() => setActiveTab('business')}
-                className={`px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                className={`px-5 py-3 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   activeTab === 'business'
                     ? 'bg-purple-600 text-white shadow-md'
                     : 'text-slate-400 hover:text-white'
@@ -61,7 +73,12 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
         {/* Dynamic Workflow Grid + Interactive Phone Mockup */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Steps Column */}
-          <div className="lg:col-span-7 space-y-4">
+          <div
+            id={activeTab === 'creator' ? 'panel-creator-workflow' : 'panel-business-workflow'}
+            role="tabpanel"
+            aria-labelledby={activeTab === 'creator' ? 'tab-creator-workflow' : 'tab-business-workflow'}
+            className="lg:col-span-7 space-y-4"
+          >
             {activeTab === 'creator' ? (
               <>
                 {/* Creator Step 1 */}

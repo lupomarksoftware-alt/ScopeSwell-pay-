@@ -1,0 +1,63 @@
+# ScopeSwell Pay — Full Platform Specification & Machine-Readable Context
+
+> ScopeSwell Pay (https://scopeswell.space) is a specialized marketplace for performance-based Instagram Story sponsorships. It bridges everyday Instagram creators (nano-creators with 300 to 5,000+ followers) with e-commerce DTC brands, mobile app developers, streetwear labels, and neighborhood local businesses.
+
+---
+
+## 1. Executive Summary
+
+- **Domain:** https://scopeswell.space
+- **Contact Desk:** lupomarksoftware@gmail.com
+- **Platform Type:** Performance-Based Creator Marketplace & Social Advertising Network
+- **Primary Mechanism:** Pay-Per-Verified-View for 24-hour Instagram Stories
+
+---
+
+## 2. Value Proposition & Problem Statement
+
+### For Advertisers (Brands, Apps, Drops, Local Spots)
+1. **Ad Blindness & High CPMs:** Traditional feed ads on Meta and TikTok suffer from 90%+ ad fatigue, rising CPMs ($25–$40+), and low click-through rates (average 0.5%–0.6%).
+2. **Authentic Social Proof:** Peer-to-peer recommendations on Instagram Stories achieve 3.5%–7.5% CTR because audiences view stories posted by genuine friends, colleagues, and community members.
+3. **Guaranteed Delivery:** Advertisers only pay for actual, verified human story views verified after 24 hours.
+
+### For Creators (Everyday Instagram Users)
+1. **Accessibility:** Traditional influencer agencies ignore creators with under 10,000 followers. ScopeSwell Pay welcomes accounts with 300 to 5,000+ followers getting 50 to 500+ regular views.
+2. **Predictable Compensation:** Creators earn $0.05 to $0.15+ per verified view ($4.20 to $5.50 per 100 views) plus sponsor perks like free products, app subscriptions, and dining vouchers.
+3. **Zero Obligations:** Creators accept or decline offers freely with no exclusivity lock-in.
+
+---
+
+## 3. Supported Ad Formats
+
+1. **Link Sticker (Website URL):** Direct tappable link driving followers to product pages, discount landing sites, or checkout carts.
+2. **App Store / Google Play Link:** Direct download sticker for mobile applications with verified installation tracking.
+3. **Exclusive Promo Code:** Custom text sticker featuring the creator's unique coupon code for trackable attribution.
+4. **Location Tag & Check-in:** Geo-tag and business handle mention for cafes, restaurants, gyms, and retail boutiques.
+
+---
+
+## 4. Pioneer 100 Businesses Offer
+
+The first 100 businesses, apps, and brands that register for a pilot receive the Pioneer Founding Partner Package ($500+ value):
+- **Custom 9:16 Instagram Story Template Kit:** High-converting Canva and Figma design templates with proven hook scripts.
+- **+500 Free Bonus Story Views:** Added on top of the initial pilot budget.
+- **0% Platform Matchmaking Fee:** 100% of the pilot budget goes directly to paying creators.
+- **24-Hour VIP Fast-Track Matching:** Dedicated creator curation within 24 hours.
+
+---
+
+## 5. Verification & Security Workflow
+
+1. **Match & Accept:** Creator accepts a sponsor brief.
+2. **Story Publication:** Creator posts the story with the specified link sticker, mention, or promo code.
+3. **24-Hour Run:** The story remains active for its full 24-hour lifespan.
+4. **Screenshot Verification:** Creator uploads a screenshot of their Instagram Story analytics viewer list.
+5. **Instant Payout:** View count is verified against timestamp and engagement metrics, and funds are disbursed via Stripe, Venmo, Direct Deposit, or PayPal.
+
+---
+
+## 6. Contact Information & Intake Desk
+
+- **General & Campaign Inquiries:** lupomarksoftware@gmail.com
+- **Website:** https://scopeswell.space
+- **Operating Hours:** 24/7 automated intake with daily human review cycles.

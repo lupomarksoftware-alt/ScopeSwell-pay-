@@ -4,3 +4,7 @@ Allow: /
 
 # Sitemap Location
 Sitemap: https://scopeswell.space/sitemap.xml
+
+# LLMs.txt for AI Agents
+# https://scopeswell.space/llms.txt
+# https://scopeswell.space/llms-full.txt

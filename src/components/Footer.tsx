@@ -45,23 +45,23 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onOpenCreatorModal}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  className="hover:text-white transition-colors cursor-pointer text-left inline-block py-1.5 sm:py-0"
                 >
                   Join Creator Waitlist
                 </button>
               </li>
               <li>
-                <a href="#calculator" className="hover:text-white transition-colors">
+                <a href="#calculator" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
                   Earnings Calculator
                 </a>
               </li>
               <li>
-                <a href="#how-it-works" className="hover:text-white transition-colors">
+                <a href="#how-it-works" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
                   How 24h Payouts Work
                 </a>
               </li>
               <li>
-                <a href="#campaigns" className="hover:text-white transition-colors">
+                <a href="#campaigns" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
                   Browse Ad Formats
                 </a>
               </li>
@@ -75,23 +75,23 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onOpenBusinessModal}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  className="hover:text-white transition-colors cursor-pointer text-left inline-block py-1.5 sm:py-0"
                 >
                   Register Brand / App Pilot
                 </button>
               </li>
               <li>
-                <a href="#calculator" className="hover:text-white transition-colors">
+                <a href="#calculator" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
                   Campaign ROI Estimator
                 </a>
               </li>
               <li>
-                <a href="#comparison" className="hover:text-white transition-colors">
+                <a href="#comparison" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
                   Compare vs Influencers
                 </a>
               </li>
               <li>
-                <a href="#cities" className="hover:text-white transition-colors">
+                <a href="#cities" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
                   Launch Cities & Reach
                 </a>
               </li>
@@ -103,7 +103,7 @@ export const Footer: React.FC<FooterProps> = ({
             <p className="font-bold text-white uppercase tracking-wider text-[11px]">Direct Contact & Intake</p>
             <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2.5">
               <div className="flex items-center gap-2 text-slate-300">
-                <Mail className="w-4 h-4 text-rose-400 shrink-0" />
+                <Mail className="w-4 h-4 text-rose-400 shrink-0" aria-hidden="true" />
                 <span className="font-semibold text-white">Central Operations Inbox:</span>
               </div>
               <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-950 border border-slate-800 text-[11px]">
@@ -116,10 +116,11 @@ export const Footer: React.FC<FooterProps> = ({
                 </a>
                 <button
                   onClick={handleCopyEmail}
-                  className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer shrink-0"
+                  aria-label="Copy email to clipboard"
+                  className="p-2 sm:p-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer shrink-0"
                   title="Copy email to clipboard"
                 >
-                  {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" /> : <Copy className="w-3.5 h-3.5" aria-hidden="true" />}
                 </button>
               </div>
               <p className="text-[10px] text-slate-400 leading-relaxed">
@@ -130,7 +131,7 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom copyright & disclaimer */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 text-[11px]">
           <p>© {new Date().getFullYear()} ScopeSwell Pay. All rights reserved.</p>
           <p className="text-center sm:text-right">
             Intake Contact: <a href={`mailto:${MAIN_EMAIL}`} className="text-slate-400 hover:text-white underline">{MAIN_EMAIL}</a> • Independent platform.

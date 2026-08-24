@@ -77,7 +77,7 @@ export const ComparisonSection: React.FC = () => {
                 <button
                   key={amt}
                   onClick={() => setTestBudget(amt)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                  className={`px-4 py-3 sm:py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
                     testBudget === amt
                       ? 'bg-rose-500 text-white border-rose-400 shadow-md shadow-rose-500/20'
                       : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white'
@@ -156,21 +156,21 @@ export const ComparisonSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-lg font-bold text-slate-300">Basic Meta / Social Ads</h4>
-                    <p className="text-xs text-slate-500">Programmatic feed & story banners</p>
+                    <p className="text-xs text-slate-400">Programmatic feed & story banners</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 my-4">
                   <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
-                    <p className="text-[11px] text-slate-500">Estimated Ad Clicks</p>
+                    <p className="text-[11px] text-slate-400">Estimated Ad Clicks</p>
                     <p className="text-2xl font-black text-slate-400 font-mono">~{metaClicks.toLocaleString()}</p>
                     <p className="text-[10px] text-rose-400/80 mt-0.5">0.6% cold programmatic CTR</p>
                   </div>
 
                   <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
-                    <p className="text-[11px] text-slate-500">Impressions</p>
+                    <p className="text-[11px] text-slate-400">Impressions</p>
                     <p className="text-2xl font-black text-slate-300 font-mono">{metaImpressions.toLocaleString()}</p>
-                    <p className="text-[10px] text-slate-500 mt-0.5">High banner blindness / fast swipe</p>
+                    <p className="text-[10px] text-slate-400 mt-0.5">High banner blindness / fast swipe</p>
                   </div>
                 </div>
 
@@ -194,7 +194,7 @@ export const ComparisonSection: React.FC = () => {
                 </ul>
               </div>
 
-              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-500 font-medium">
+              <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 font-medium">
                 ⚠️ Result: Expensive upfront spend with high bounce rates and zero personal peer advocacy.
               </div>
             </div>

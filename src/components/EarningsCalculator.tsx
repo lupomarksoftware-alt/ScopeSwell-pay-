@@ -129,8 +129,16 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
 
           {/* Toggle Button */}
           <div className="mt-6 flex justify-center">
-            <div className="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 shadow-lg">
+            <div
+              role="tablist"
+              aria-label="Calculator Mode Selector"
+              className="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 shadow-lg"
+            >
               <button
+                id="calc-tab-creator"
+                role="tab"
+                aria-selected={calculatorMode === 'creator'}
+                aria-controls="calc-panel-creator"
                 onClick={() => setCalculatorMode('creator')}
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   calculatorMode === 'creator'
@@ -138,10 +146,14 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <Instagram className="w-4 h-4" />
+                <Instagram className="w-4 h-4" aria-hidden="true" />
                 <span>Creator Earnings Calculator</span>
               </button>
               <button
+                id="calc-tab-business"
+                role="tab"
+                aria-selected={calculatorMode === 'business'}
+                aria-controls="calc-panel-business"
                 onClick={() => setCalculatorMode('business')}
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   calculatorMode === 'business'
@@ -149,7 +161,7 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <Store className="w-4 h-4" />
+                <Store className="w-4 h-4" aria-hidden="true" />
                 <span>Advertiser ROI Calculator</span>
               </button>
             </div>
@@ -158,7 +170,12 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
 
         {calculatorMode === 'creator' ? (
           /* CREATOR CALCULATOR */
-          <div className="max-w-4xl mx-auto rounded-3xl bg-slate-900/90 border border-rose-500/20 p-6 sm:p-10 shadow-2xl shadow-rose-950/30 backdrop-blur-xl">
+          <div
+            id="calc-panel-creator"
+            role="tabpanel"
+            aria-labelledby="calc-tab-creator"
+            className="max-w-4xl mx-auto rounded-3xl bg-slate-900/90 border border-rose-500/20 p-6 sm:p-10 shadow-2xl shadow-rose-950/30 backdrop-blur-xl"
+          >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Sliders Area */}
               <div className="lg:col-span-7 space-y-7">
@@ -193,7 +210,7 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                 {/* Slider 1: Typical Views */}
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <label className="text-sm font-bold text-slate-200">
+                    <label htmlFor="creator-story-views-slider" className="text-sm font-bold text-slate-200">
                       Average Views on your Instagram Stories:
                     </label>
                     <span className="px-3 py-1 rounded-lg bg-rose-500/20 text-rose-300 font-mono font-bold text-base border border-rose-500/30">
@@ -201,15 +218,21 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                     </span>
                   </div>
                   <input
+                    id="creator-story-views-slider"
                     type="range"
                     min={50}
                     max={3000}
                     step={25}
                     value={storyViews}
+                    aria-label="Average Views on your Instagram Stories"
+                    aria-valuemin={50}
+                    aria-valuemax={3000}
+                    aria-valuenow={storyViews}
+                    aria-valuetext={`${storyViews} views`}
                     onChange={(e) => setStoryViews(Number(e.target.value))}
                     className="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-rose-500"
                   />
-                  <div className="flex justify-between text-xs text-slate-500 mt-1.5 font-medium">
+                  <div className="flex justify-between text-xs text-slate-400 mt-1.5 font-medium">
                     <span>50 views (friends only)</span>
                     <span>1,500 views</span>
                     <span>3,000+ views</span>
@@ -219,7 +242,7 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                 {/* Slider 2: Stories per month */}
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <label className="text-sm font-bold text-slate-200">
+                    <label htmlFor="creator-stories-month-slider" className="text-sm font-bold text-slate-200">
                       Sponsored Stories you'd post per month:
                     </label>
                     <span className="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 font-mono font-bold text-base border border-amber-500/30">
@@ -227,15 +250,21 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                     </span>
                   </div>
                   <input
+                    id="creator-stories-month-slider"
                     type="range"
                     min={1}
                     max={8}
                     step={1}
                     value={storiesPerMonth}
+                    aria-label="Sponsored Stories you'd post per month"
+                    aria-valuemin={1}
+                    aria-valuemax={8}
+                    aria-valuenow={storiesPerMonth}
+                    aria-valuetext={`${storiesPerMonth} stories per month`}
                     onChange={(e) => setStoriesPerMonth(Number(e.target.value))}
                     className="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
                   />
-                  <div className="flex justify-between text-xs text-slate-500 mt-1.5 font-medium">
+                  <div className="flex justify-between text-xs text-slate-400 mt-1.5 font-medium">
                     <span>1 story / month</span>
                     <span>4 stories / month</span>
                     <span>8 stories / month</span>
@@ -304,7 +333,12 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
           </div>
         ) : (
           /* BUSINESS / ADVERTISER CALCULATOR */
-          <div className="max-w-4xl mx-auto rounded-3xl bg-slate-900/90 border border-purple-500/20 p-6 sm:p-10 shadow-2xl shadow-purple-950/30 backdrop-blur-xl">
+          <div
+            id="calc-panel-business"
+            role="tabpanel"
+            aria-labelledby="calc-tab-business"
+            className="max-w-4xl mx-auto rounded-3xl bg-slate-900/90 border border-purple-500/20 p-6 sm:p-10 shadow-2xl shadow-purple-950/30 backdrop-blur-xl"
+          >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Sliders Area */}
               <div className="lg:col-span-7 space-y-7">
@@ -331,7 +365,7 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                               : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:text-white'
                           }`}
                         >
-                          <Icon className="w-4 h-4" />
+                          <Icon className="w-4 h-4" aria-hidden="true" />
                           <span className="text-[10px] text-center leading-tight">{item.label}</span>
                         </button>
                       );
@@ -342,7 +376,7 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                 {/* Slider 1: Pilot Budget */}
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <label className="text-sm font-bold text-slate-200">
+                    <label htmlFor="business-budget-slider" className="text-sm font-bold text-slate-200">
                       Campaign Pilot Budget:
                     </label>
                     <span className="px-3 py-1 rounded-lg bg-purple-500/20 text-purple-300 font-mono font-bold text-base border border-purple-500/30">
@@ -350,15 +384,21 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                     </span>
                   </div>
                   <input
+                    id="business-budget-slider"
                     type="range"
                     min={150}
                     max={3000}
                     step={50}
                     value={businessBudget}
+                    aria-label="Campaign Pilot Budget in USD"
+                    aria-valuemin={150}
+                    aria-valuemax={3000}
+                    aria-valuenow={businessBudget}
+                    aria-valuetext={`$${businessBudget} dollars`}
                     onChange={(e) => setBusinessBudget(Number(e.target.value))}
                     className="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500"
                   />
-                  <div className="flex justify-between text-xs text-slate-500 mt-1.5 font-medium">
+                  <div className="flex justify-between text-xs text-slate-400 mt-1.5 font-medium">
                     <span>$150 (starter pilot)</span>
                     <span>$1,500</span>
                     <span>$3,000+ (nationwide scale)</span>

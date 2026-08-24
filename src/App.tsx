@@ -48,6 +48,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0b0f17] text-slate-100 flex flex-col selection:bg-rose-500 selection:text-white">
+      {/* Skip to Main Content Link for Keyboard and Screen Readers */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-rose-600 focus:text-white focus:font-bold focus:rounded-xl focus:shadow-2xl focus:ring-2 focus:ring-rose-300 focus:outline-none transition-all"
+      >
+        Skip to main content
+      </a>
+
       {/* Header */}
       <Header
         onOpenCreatorModal={() => handleOpenCreatorModal()}
@@ -56,8 +64,8 @@ export default function App() {
         businessCount={businesses.length}
       />
 
-      {/* Main Content */}
-      <main className="flex-1">
+      {/* Main Content Landmark */}
+      <main id="main-content" role="main" className="flex-1">
         <HeroSection
           onOpenCreatorModal={() => handleOpenCreatorModal()}
           onOpenBusinessModal={() => handleOpenBusinessModal()}

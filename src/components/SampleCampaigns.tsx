@@ -58,10 +58,12 @@ export const SampleCampaigns: React.FC<SampleCampaignsProps> = ({
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center justify-center gap-2 flex-wrap mb-10">
+        <div role="group" aria-label="Campaign category filter" className="flex items-center justify-center gap-2 flex-wrap mb-10">
           {categories.map((cat) => (
             <button
               key={cat}
+              type="button"
+              aria-pressed={selectedFilter === cat}
               onClick={() => setSelectedFilter(cat)}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
                 selectedFilter === cat
@@ -164,7 +166,7 @@ export const SampleCampaigns: React.FC<SampleCampaignsProps> = ({
               <div className="p-5 pt-0 border-t border-slate-800/80 mt-2">
                 <button
                   onClick={() => setActiveCampaign(camp)}
-                  className="w-full py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer mt-3"
+                  className="w-full py-3.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer mt-3"
                 >
                   <span>Preview Campaign Brief & Requirements</span>
                   <ArrowRight className="w-3.5 h-3.5" />
