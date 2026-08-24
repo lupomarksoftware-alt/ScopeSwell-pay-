@@ -1,0 +1,6 @@
+# ScopeSwell Pay Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://scopeswell.space/sitemap.xml

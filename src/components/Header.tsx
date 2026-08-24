@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Menu, X, ArrowRight, Instagram, Store, ShieldCheck, Mail } from 'lucide-react';
+import { Sparkles, Menu, X, ArrowRight, Instagram, Store, ShieldCheck, Mail, Gift } from 'lucide-react';
 import { MAIN_EMAIL } from '../utils/notifications';
 
 interface HeaderProps {
@@ -25,7 +25,12 @@ export const Header: React.FC<HeaderProps> = ({
         <span className="font-semibold text-white">Pilot Launch Beta:</span>
         <span>
           <strong className="text-rose-300">{creatorCount}</strong> creators &{' '}
-          <strong className="text-purple-300">{businessCount}</strong> brands & local spots registered.
+          <strong className="text-purple-300">{businessCount}</strong> brands registered.
+        </span>
+        <span className="hidden md:inline-block text-slate-500">•</span>
+        <span className="hidden md:inline-flex items-center gap-1 text-amber-300 font-semibold">
+          <Gift className="w-3 h-3 text-amber-400" />
+          First 100 Brands get Free Story Template Kit + 500 Bonus Views
         </span>
       </div>
 
@@ -109,10 +114,13 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="hidden sm:flex items-center gap-2.5 shrink-0 ml-3">
             <button
               onClick={onOpenBusinessModal}
-              className="px-3.5 py-2 rounded-xl text-xs font-semibold text-purple-200 hover:text-white bg-purple-950/70 hover:bg-purple-900/90 border border-purple-700/60 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm whitespace-nowrap shrink-0"
+              className="px-3 py-2 rounded-xl text-xs font-semibold text-purple-200 hover:text-white bg-purple-950/70 hover:bg-purple-900/90 border border-purple-700/60 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm whitespace-nowrap shrink-0 group"
             >
               <Store className="w-3.5 h-3.5 text-purple-400" />
               <span>For Businesses</span>
+              <span className="ml-0.5 px-1.5 py-0.2 rounded bg-amber-500/20 border border-amber-500/40 text-[10px] font-bold text-amber-300">
+                🎁 Perk
+              </span>
             </button>
 
             <button

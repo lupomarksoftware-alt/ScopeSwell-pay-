@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { X, Store, CheckCircle2, Sparkles, MapPin, Mail, Phone, Globe, Building2, Target, ArrowRight, Shield, ShoppingBag, Smartphone, Tag, Link, Send } from 'lucide-react';
+import { X, Store, CheckCircle2, Sparkles, MapPin, Mail, Phone, Globe, Building2, Target, ArrowRight, Shield, ShoppingBag, Smartphone, Tag, Link, Send, Gift, FileText, Zap } from 'lucide-react';
 import { BrandCategory, BusinessRegistration, AdFormatType } from '../types';
 import { saveBusiness } from '../utils/storage';
 import { MAIN_EMAIL, getBusinessMailtoUrl, sendBusinessRegistrationEmail } from '../utils/notifications';
@@ -209,17 +209,52 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
           {submittedBusiness ? (
             /* SUCCESS STATE */
             <div className="space-y-6 text-center">
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-purple-500 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30">
-                <CheckCircle2 className="w-8 h-8" />
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-purple-500 via-pink-500 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30">
+                <Gift className="w-8 h-8" />
               </div>
 
               <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-bold mb-2">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Founding Partner #73 / 100 Locked In!</span>
+                </div>
                 <h4 className="text-2xl font-bold text-white font-['Space_Grotesk']">
-                  Pilot Request Received for {submittedBusiness.businessName}!
+                  Pioneer Spot Reserved for {submittedBusiness.businessName}!
                 </h4>
                 <p className="text-sm text-slate-300 mt-2 max-w-md mx-auto">
-                  We're setting up your story ad campaign matching matrix. You will receive custom creator profile recommendations within 24 hours.
+                  We're creating your custom <strong className="text-purple-300">9:16 Instagram Story Template Kit</strong> and setting up your creator matching matrix.
                 </p>
+              </div>
+
+              {/* Pioneer Perks Package Unlocked */}
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-950/60 via-slate-900 to-slate-950 border border-purple-500/40 text-left space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between pb-2 border-b border-purple-900/60">
+                  <span className="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+                    <Gift className="w-4 h-4 text-amber-400" />
+                    <span>Unlocked Pioneer Perks ($500+ Value):</span>
+                  </span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-950/80 border border-amber-500/50 text-amber-300">
+                    CLAIMED
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  <div className="flex items-start gap-2 text-slate-200">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                    <span><strong>Free Story Template Kit:</strong> Branded Canva/Figma 9:16 layouts</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-slate-200">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                    <span><strong>+500 Bonus Story Views:</strong> Credited to your first pilot</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-slate-200">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                    <span><strong>$0 Matchmaking Fee:</strong> 100% goes directly to creator views</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-slate-200">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                    <span><strong>VIP Priority Matching:</strong> First-access creator pairings</span>
+                  </div>
+                </div>
               </div>
 
               {/* Campaign Summary Receipt */}
@@ -233,7 +268,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                 <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-800">
                   <span className="text-slate-400">Target Verified Views:</span>
                   <span className="font-bold text-emerald-400 font-mono">
-                    ~{submittedBusiness.targetStoryViews.toLocaleString()} views
+                    ~{submittedBusiness.targetStoryViews.toLocaleString()} views (+500 Bonus Views)
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-800">
@@ -253,30 +288,26 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-400 flex items-center gap-1.5 font-medium">
                     <Mail className="w-3.5 h-3.5 text-purple-400" />
-                    Pilot Proposal Dispatched To:
+                    Pilot Brief & Template Request Sent To:
                   </span>
                   <span className="text-purple-300 font-mono font-bold text-[11px]">{MAIN_EMAIL}</span>
                 </div>
                 <p className="text-[11px] text-slate-400">
-                  Our campaign desk at <strong className="text-slate-300">{MAIN_EMAIL}</strong> will review your target audience and match relevant creators.
+                  Our campaign team at <strong className="text-slate-300">{MAIN_EMAIL}</strong> will deliver your custom Story Template Kit and creator match roster to <strong className="text-purple-300">{submittedBusiness.email}</strong>.
                 </p>
                 <a
                   href={getBusinessMailtoUrl(submittedBusiness)}
                   className="w-full py-2.5 px-3 rounded-xl bg-purple-950/70 hover:bg-purple-900/80 border border-purple-700/60 text-xs font-semibold text-purple-200 hover:text-white transition-all flex items-center justify-center gap-2"
                 >
                   <Send className="w-3.5 h-3.5 text-purple-400" />
-                  <span>Send Campaign Assets / Brief to {MAIN_EMAIL}</span>
+                  <span>Send Direct Campaign Assets / Logo to {MAIN_EMAIL}</span>
                 </a>
-              </div>
-
-              <div className="p-4 rounded-xl bg-purple-950/30 border border-purple-800/40 text-xs text-purple-200">
-                💡 <strong>Next step:</strong> Our brand concierge will follow up at <strong>{submittedBusiness.email}</strong> with your tailored creator roster & link sticker plan.
               </div>
 
               <button
                 type="button"
                 onClick={resetAndClose}
-                className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-purple-600 hover:bg-purple-500 transition-colors cursor-pointer"
+                className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 transition-colors cursor-pointer shadow-lg shadow-purple-900/40"
               >
                 Close & Return to ScopeSwell Pay
               </button>
@@ -289,6 +320,55 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                 {errorMsg}
               </div>
             )}
+
+            {/* Pioneer 100 Offer Banner */}
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-950/70 via-indigo-950/60 to-purple-950/70 border border-purple-500/40 relative overflow-hidden shadow-md">
+              <div className="absolute top-0 right-0 transform translate-x-3 -translate-y-2 w-28 h-28 bg-purple-500/10 rounded-full blur-xl pointer-events-none" />
+              
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
+                    <Gift className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-amber-300 font-['Space_Grotesk'] uppercase tracking-wider">
+                        🎁 First 100 Businesses Offer
+                      </span>
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 animate-pulse">
+                        28 SPOTS LEFT
+                      </span>
+                    </div>
+                    <h4 className="text-sm font-bold text-white mt-0.5">
+                      Get a Free Custom 9:16 Story Template Kit + 500 Bonus Views
+                    </h4>
+                    <p className="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                      Register your pilot today to receive our branded Canva/Figma Story Template Kit, tested link-sticker hook copies, 500 free bonus story views, and 0% platform match fees.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4 Key Perk Badges */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mt-3 pt-2.5 border-t border-purple-900/60 text-[10px] font-semibold text-purple-200">
+                <div className="flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
+                  <span>Free Story Kit</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Zap className="w-3 h-3 text-emerald-400 shrink-0" />
+                  <span>+500 Bonus Views</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Shield className="w-3 h-3 text-cyan-400 shrink-0" />
+                  <span>$0 Platform Fee</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Store className="w-3 h-3 text-pink-400 shrink-0" />
+                  <span>24h Fast-Track</span>
+                </div>
+              </div>
+            </div>
 
             {/* Scope / Distribution Target */}
             <div>
@@ -517,14 +597,22 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
               />
             </div>
 
-            <div className="space-y-2 pt-2">
+            {/* Template Kit & Pioneer Perks Active Box */}
+            <div className="p-3.5 rounded-xl bg-purple-950/40 border border-purple-800/60 flex items-start gap-2.5">
+              <Sparkles className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div className="text-xs text-purple-200">
+                <span className="font-bold text-amber-300">Pioneer Partner Perk Included:</span> Your custom 9:16 Instagram Story Template Kit (Canva + Figma) + 500 Bonus Story Views will be attached automatically upon registration.
+              </div>
+            </div>
+
+            <div className="space-y-2 pt-1">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-lg shadow-purple-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-xl shadow-purple-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
-                <Store className="w-4 h-4" />
-                <span>{isSubmitting ? 'Registering Pilot...' : 'Submit Advertiser Pilot Request'}</span>
+                <Gift className="w-4 h-4 text-amber-300" />
+                <span>{isSubmitting ? 'Securing Pioneer Spot...' : 'Claim Pioneer Spot & Free Story Template Kit (28 Left)'}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 

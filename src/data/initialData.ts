@@ -330,6 +330,10 @@ export const CREATOR_FAQS = [
 
 export const BUSINESS_FAQS = [
   {
+    q: 'What is the First 100 Businesses Pioneer Offer and what comes in the Story Template Kit?',
+    a: 'The first 100 businesses, DTC brands, mobile apps, and local shops that register for a pilot receive our complete Pioneer Founding Partner Package ($500+ value): (1) A Custom 9:16 Instagram Story Template & Creative Ad Kit with proven high-converting Canva/Figma layouts and swipe-up hook scripts, (2) 500 Free Bonus Verified Story Views added to your pilot campaign, (3) 0% platform matchmaking fees on your first run, and (4) VIP 24-hour priority creator matching.',
+  },
+  {
     q: 'Why is ScopeSwell Pay significantly more effective than basic Meta/TikTok ads?',
     a: 'Cold social ads suffer from 90%+ ad blindness, rising CPMs ($25-$40+ on Meta), high bot/accidental tap rates, and low conversion trust (0.5% CTR). ScopeSwell mobilizes real human circles: when friends recommend an app, product, or cafe on their story, Nielsen studies show 92% trust and 5x to 8x higher link sticker clickthrough (3.5% - 7.5% CTR).',
   },

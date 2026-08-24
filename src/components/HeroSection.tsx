@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Instagram, Store, ArrowRight, CheckCircle2, Sparkles, MapPin, DollarSign, Eye, Users, ShieldCheck, Zap, ShoppingBag, Smartphone, Ticket, Sparkle, Tag } from 'lucide-react';
+import { Instagram, Store, ArrowRight, CheckCircle2, Sparkles, MapPin, DollarSign, Eye, Users, ShieldCheck, Zap, ShoppingBag, Smartphone, Ticket, Sparkle, Tag, Gift } from 'lucide-react';
 import { UserRole } from '../types';
 
 interface HeroSectionProps {
@@ -146,6 +146,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </>
             ) : (
               <>
+                {/* Special Pioneer 100 Offer Badge */}
+                <div className="mb-4 inline-flex items-center gap-2 p-1.5 pr-3 rounded-2xl bg-purple-950/80 border border-purple-500/40 text-xs shadow-lg backdrop-blur-sm">
+                  <span className="px-2.5 py-0.5 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-[11px] flex items-center gap-1">
+                    <Gift className="w-3 h-3" />
+                    <span>FIRST 100 BRANDS</span>
+                  </span>
+                  <span className="text-purple-200 font-semibold">
+                    Free Story Template & Ad Kit + 500 Bonus Views
+                  </span>
+                  <span className="text-emerald-400 font-mono font-bold text-[11px] hidden sm:inline">
+                    (28 Spots Left)
+                  </span>
+                </div>
+
                 <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] font-['Space_Grotesk']">
                   Authentic story advertising for{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-300">
@@ -239,15 +253,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     onClick={onOpenBusinessModal}
                     className="w-full sm:w-auto px-7 py-4 rounded-xl text-base font-bold text-white bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 transition-all flex items-center justify-center gap-2 shadow-xl shadow-purple-600/30 hover:shadow-purple-600/50 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
                   >
-                    <Store className="w-5 h-5" />
-                    <span>Register Brand / App Pilot</span>
+                    <Gift className="w-5 h-5 text-amber-300" />
+                    <span>Claim Pioneer Spot & Free Template Kit</span>
                     <ArrowRight className="w-4 h-4 ml-1" />
                   </button>
                   <a
                     href="#campaigns"
                     className="w-full sm:w-auto px-6 py-4 rounded-xl text-sm font-semibold text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-800 transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>Browse Ad Formats</span>
+                    <span>Browse Sample Stories</span>
                   </a>
                 </>
               )}

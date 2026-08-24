@@ -53,7 +53,7 @@ export async function sendCreatorRegistrationEmail(creator: CreatorRegistration)
 export async function sendBusinessRegistrationEmail(business: BusinessRegistration): Promise<{ success: boolean; message: string }> {
   try {
     const payload = {
-      _subject: `[ScopeSwell Pay] Brand Pilot Proposal: ${business.businessName} (${business.category})`,
+      _subject: `[ScopeSwell Pay] 🎁 Founding 100 Brand Pilot: ${business.businessName} (${business.category})`,
       _replyto: business.email,
       recipient: MAIN_EMAIL,
       business_name: business.businessName,
@@ -67,8 +67,9 @@ export async function sendBusinessRegistrationEmail(business: BusinessRegistrati
       monthly_budget: business.monthlyBudget,
       target_verified_views: `~${business.targetStoryViews.toLocaleString()} views`,
       campaign_goals: business.promotionGoal || 'Pay-per-view Story Pilot',
+      pioneer_perk_claimed: 'Founding 100 Brand: Free Custom Story Template & Ad Kit + 500 Bonus Story Views + $0 Matchmaking Fee',
       submitted_at: business.createdAt ? new Date(business.createdAt).toISOString() : new Date().toISOString(),
-      source: 'ScopeSwell Pay Brand Pilot Intake Desk',
+      source: 'ScopeSwell Pay Brand Pilot Intake Desk (First 100 Businesses Promotion)',
     };
 
     // Attempt background HTTP post to form service for immediate inbox delivery
@@ -126,26 +127,27 @@ ${creator.fullName}`
  * Generates a pre-filled mailto URL for a newly registered advertiser/business
  */
 export function getBusinessMailtoUrl(business: BusinessRegistration): string {
-  const subject = encodeURIComponent(`[ScopeSwell Pay] Brand Pilot Proposal: ${business.businessName} (${business.category})`);
+  const subject = encodeURIComponent(`[ScopeSwell Pay] 🎁 Founding 100 Brand Pilot: ${business.businessName} (${business.category})`);
   const body = encodeURIComponent(
 `Hi ScopeSwell Campaign Team (${MAIN_EMAIL}),
 
 We just submitted a pilot campaign brief for ${business.businessName}!
 
---- BUSINESS PILOT DETAILS ---
+--- FOUNDING 100 BUSINESS PILOT DETAILS ---
 Company / Brand: ${business.businessName}
 Contact Person: ${business.contactName}
 Business Email: ${business.email}
-Phone: ${business.phone}
-Website / Instagram: ${business.websiteOrInstagram}
+Phone: ${business.phone || 'N/A'}
+Website / Instagram: ${business.websiteOrInstagram || 'N/A'}
 Category: ${business.category}
 Target Audience / Location: ${business.city} (${business.isGlobalOrNational ? 'Nationwide/Online' : 'Local'})
 Ad Formats: ${business.preferredAdFormats.join(', ')}
 Monthly Pilot Budget: ${business.monthlyBudget}
 Estimated Target Views: ~${business.targetStoryViews.toLocaleString()} verified views
-Campaign Goal: ${business.promotionGoal}
+Campaign Goal: ${business.promotionGoal || 'Pay-per-view Story Pilot'}
+Claimed Perks: Free Story Template & Creative Kit + 500 Bonus Story Views + $0 Matchmaking Fee
 
-Please send over our custom creator roster and next launch steps.
+Please send over our custom Story Template Kit, creator roster, and campaign launch matrix.
 
 Best regards,
 ${business.contactName}
