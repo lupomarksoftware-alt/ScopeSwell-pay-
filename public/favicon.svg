@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="scopeswellGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="50%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#9333ea" />
+    </linearGradient>
+    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Dark Background rounded rect for high contrast on light/dark browser tabs -->
+  <rect width="64" height="64" rx="16" fill="#0b0f17"/>
+
+  <!-- Glowing Gradient S Squircle -->
+  <rect x="6" y="6" width="52" height="52" rx="14" fill="url(#scopeswellGrad)" filter="url(#shadow)"/>
+
+  <!-- Central stylized 'S' letter with optical balance -->
+  <text x="32" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Space Grotesk', 'Plus Jakarta Sans', system-ui, sans-serif" font-size="34" font-weight="900" text-anchor="middle" fill="#ffffff" letter-spacing="-1">S</text>
+
+  <!-- Green 'PAY' badge pill in bottom corner -->
+  <g transform="translate(36, 42)">
+    <rect width="22" height="15" rx="5" fill="#0b0f17"/>
+    <rect x="1.5" y="1.5" width="19" height="12" rx="4" fill="url(#badgeGrad)"/>
+    <text x="11" y="10.5" font-family="-apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="7.5" font-weight="900" text-anchor="middle" fill="#0b0f17" letter-spacing="0.5">PAY</text>
+  </g>
+</svg>
