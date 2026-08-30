@@ -16,56 +16,56 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   setActiveRole,
 }) => {
   const [demoViews, setDemoViews] = useState<number>(550);
-  const [selectedAdType, setSelectedAdType] = useState<'dtc' | 'app' | 'fashion' | 'local'>('dtc');
+  const [selectedAdType, setSelectedAdType] = useState<'cafe' | 'gym' | 'salon' | 'retail'>('cafe');
 
   const adTypeSamples = {
-    dtc: {
-      brand: 'HydraPulse Electrolytes',
-      type: 'DTC E-Commerce',
-      rate: 4.8,
-      tagline: 'Share link sticker for 25% off clean hydration',
-      badge: 'Link Sticker',
-      icon: ShoppingBag,
-      color: 'from-cyan-500 to-blue-500',
-      sampleStoryText: 'Tap to get 25% off my favorite clean hydration! 💧',
-      link: 'hydrapulse.co/25off',
-      perk: '$30 + Free Sample Pack'
-    },
-    app: {
-      brand: 'FocusFlow AI Calendar',
-      type: 'Mobile App / Tech',
-      rate: 5.5,
-      tagline: 'Share App Store link for 30-day Pro access',
-      badge: 'App Store Link',
-      icon: Smartphone,
-      color: 'from-purple-500 to-indigo-500',
-      sampleStoryText: 'Download FocusFlow (Free 30-Day Pro Link) 📱',
-      link: 'apps.apple.com/focusflow',
-      perk: '$35 + Lifetime Pro Pass'
-    },
-    fashion: {
-      brand: 'Aura Dept Streetwear',
-      type: 'Apparel Drop',
-      rate: 4.5,
-      tagline: 'Share limited hoodie drop with promo code',
-      badge: 'Promo Code',
-      icon: Tag,
-      color: 'from-amber-500 to-rose-500',
-      sampleStoryText: 'New archive drop is live! Use code AURAFRIEND ✨',
-      link: 'auradept.com / AURAFRIEND',
-      perk: '$28 + Free Hoodie'
-    },
-    local: {
+    cafe: {
       brand: 'Velvet Moon Roasters',
       type: 'Local Spot / Cafe',
-      rate: 4.2,
+      rate: 4.8,
       tagline: 'Share South Congress 2-for-1 breakfast matcha',
       badge: 'Location Tag',
       icon: Store,
-      color: 'from-emerald-500 to-teal-500',
+      color: 'from-amber-500 to-orange-500',
       sampleStoryText: '2-for-1 treat at @velvetmoon_atx! Mention my story 💕',
       link: '@velvetmoon_atx (Austin, TX)',
-      perk: '$25 + Free Specialty Latte'
+      perk: '$30 + Free Specialty Latte'
+    },
+    gym: {
+      brand: 'IronCore Fitness',
+      type: 'Local Gym / Studio',
+      rate: 5.5,
+      tagline: 'Share booking link for 1 free HIIT class pass',
+      badge: 'Booking Link',
+      icon: Users,
+      color: 'from-emerald-500 to-teal-500',
+      sampleStoryText: 'Come train with me! Free first class link below 💪',
+      link: 'ironcore.fit/freeclass',
+      perk: '$35 + Free Month Membership'
+    },
+    salon: {
+      brand: 'Aura Studio',
+      type: 'Beauty & Salon',
+      rate: 4.5,
+      tagline: 'Share promo code for 20% off a blowout or cut',
+      badge: 'Promo Code',
+      icon: Sparkles,
+      color: 'from-purple-500 to-pink-500',
+      sampleStoryText: 'Best blowout in town! Use code AURA20 ✨',
+      link: 'aurastudio.com / AURA20',
+      perk: '$28 + Free Treatment'
+    },
+    retail: {
+      brand: 'Thread & Vine',
+      type: 'Local Boutique',
+      rate: 4.2,
+      tagline: 'Share location tag for their weekend pop-up sale',
+      badge: 'Location Tag',
+      icon: ShoppingBag,
+      color: 'from-rose-500 to-red-500',
+      sampleStoryText: 'Huge pop-up sale this weekend at @threadandvine 🛍️',
+      link: '@threadandvine (Downtown)',
+      perk: '$25 + $50 Store Credit'
     }
   };
 
@@ -95,7 +95,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               aria-selected={activeRole === 'creator'}
               aria-controls="role-panel-content"
               onClick={() => setActiveRole('creator')}
-              className={`flex items-center gap-2 px-5 py-3 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 min-h-[44px] px-5 py-3 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeRole === 'creator'
                   ? 'bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-lg shadow-rose-500/25'
                   : 'text-slate-400 hover:text-slate-200'
@@ -114,14 +114,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               aria-selected={activeRole === 'business'}
               aria-controls="role-panel-content"
               onClick={() => setActiveRole('business')}
-              className={`flex items-center gap-2 px-5 py-3 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 min-h-[44px] px-5 py-3 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeRole === 'business'
                   ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-600/25'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               <Store className="w-4 h-4" aria-hidden="true" />
-              <span>I'm a Brand, App or Business</span>
+              <span>I'm a Local Brand or Business</span>
               <span className="hidden sm:inline-block text-[10px] uppercase tracking-wider px-1.5 py-0.5 bg-black/30 rounded font-semibold">
                 Advertise
               </span>
@@ -144,7 +144,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 {activeRole === 'creator' ? 'Get paid cash per 100 verified story views' : 'Pay strictly for verified views — all ad formats'}
               </span>
               <span className="text-slate-400">•</span>
-              <span className="text-rose-300 font-medium">DTC, Apps, Drops & Local</span>
+              <span className="text-rose-300 font-medium">Cafés, Gyms, Salons, Events</span>
             </div>
 
             {activeRole === 'creator' ? (
@@ -152,13 +152,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] font-['Space_Grotesk']">
                   Get paid cash to share{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-400 to-amber-300">
-                    brands, apps & spots
+                    local venues, menus & places
                   </span>{' '}
                   on your Instagram Story.
                 </h1>
                 <p className="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                   No follower minimums or agency contracts needed. If your real friends and classmates watch your stories,
-                  e-commerce brands, mobile apps, streetwear drops, and neighborhood favorites want to pay you per verified view.
+                  local cafés, restaurants, salons, and neighborhood boutiques want to pay you per verified view.
                 </p>
               </>
             ) : (
@@ -178,13 +178,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
 
                 <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] font-['Space_Grotesk']">
-                  Authentic story advertising for{' '}
+                  Reach engaged local audiences for{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-300">
-                    brands, apps & local spots.
+                    cafés, gyms, salons & local spots.
                   </span>
                 </h1>
                 <p className="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  Stop burning budgets on cold ads or expensive mega-influencers. Mobilize hundreds of everyday Instagram users to post link stickers, app downloads, promo codes, and location tags to their trusted circles.
+                  Stop burning budgets on cold ads or expensive mega-influencers. Mobilize hundreds of everyday Instagram users to post location tags, booking links, and in-store promo codes to their trusted circles.
                 </p>
               </>
             )}
@@ -193,15 +193,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="mt-6 flex flex-wrap gap-2 justify-center lg:justify-start">
               <span className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 flex items-center gap-1.5">
                 <ShoppingBag className="w-3.5 h-3.5 text-cyan-400" />
-                <span>DTC & E-Commerce</span>
+                <span>Restaurants & Dining</span>
               </span>
               <span className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 flex items-center gap-1.5">
                 <Smartphone className="w-3.5 h-3.5 text-purple-400" />
-                <span>Mobile Apps & Tech</span>
+                <span>Gyms & Fitness</span>
               </span>
               <span className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 flex items-center gap-1.5">
                 <Tag className="w-3.5 h-3.5 text-amber-400" />
-                <span>Fashion & Drops</span>
+                <span>Salons & Beauty</span>
               </span>
               <span className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 flex items-center gap-1.5">
                 <Store className="w-3.5 h-3.5 text-emerald-400" />
@@ -310,7 +310,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
               <p>
                 <strong className="text-white font-semibold">1,420+ everyday users</strong> &{' '}
-                <strong className="text-white font-semibold">94 brands, apps & spots</strong> registered
+                <strong className="text-white font-semibold">94 local venues, menus & places</strong> registered
               </p>
             </div>
           </div>
@@ -340,17 +340,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   <div>
                     <p className="text-[11px] font-semibold text-slate-400 mb-2">Select an Ad Format to Test:</p>
                     <div className="grid grid-cols-4 gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800">
-                      {(['dtc', 'app', 'fashion', 'local'] as const).map((type) => (
+                      {(['cafe', 'gym', 'salon', 'retail'] as const).map((type) => (
                         <button
                           key={type}
                           onClick={() => setSelectedAdType(type)}
-                          className={`py-1.5 px-2 rounded-lg text-[11px] font-bold capitalize transition-all cursor-pointer ${
+                          className={`min-h-[44px] py-2 px-1 sm:px-2 rounded-lg text-[11px] leading-tight sm:text-xs font-bold capitalize transition-all cursor-pointer flex items-center justify-center text-center ${
                             selectedAdType === type
                               ? 'bg-rose-500 text-white shadow-sm'
                               : 'text-slate-400 hover:text-slate-200'
                           }`}
                         >
-                          {type === 'dtc' ? 'DTC Brand' : type === 'app' ? 'App Link' : type === 'fashion' ? 'Promo Code' : 'Local Spot'}
+                          {type === 'cafe' ? 'Cafe / Food' : type === 'gym' ? 'Gyms' : type === 'salon' ? 'Salon / Beauty' : 'Boutique'}
                         </button>
                       ))}
                     </div>
@@ -419,7 +419,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                   <button
                     onClick={onOpenCreatorModal}
-                    className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 shadow-lg shadow-rose-500/30 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="w-full min-h-[44px] py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 shadow-lg shadow-rose-500/30 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span>Claim Your Creator Spot</span>
                     <ArrowRight className="w-4 h-4" />
@@ -436,7 +436,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     </div>
                     <div>
                       <h2 className="text-sm font-bold text-white">Multi-Format Campaign Simulator</h2>
-                      <p className="text-[11px] text-slate-400">DTC brands, mobile apps & local businesses</p>
+                      <p className="text-[11px] text-slate-400">Cafés, restaurants, salons & local boutiques</p>
                     </div>
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
@@ -465,7 +465,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   <div className="space-y-2 text-xs">
                     <div className="flex items-center gap-2 text-slate-300">
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Link stickers, App Store links, promo codes or location tags</span>
+                      <span>Location tags, in-store promos, menu links or location tags</span>
                     </div>
                     <div className="flex items-center gap-2 text-slate-300">
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -479,9 +479,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                   <button
                     onClick={onOpenBusinessModal}
-                    className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-lg shadow-purple-600/30 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="w-full min-h-[44px] py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-lg shadow-purple-600/30 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    <span>Launch Brand / App Pilot</span>
+                    <span>Launch Local Business Pilot</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>

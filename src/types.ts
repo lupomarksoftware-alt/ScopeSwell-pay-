@@ -1,35 +1,32 @@
 export type UserRole = 'creator' | 'business';
 
 export type CreatorNiche =
-  | 'E-Commerce & DTC Brands'
-  | 'Mobile Apps & Tech Tools'
-  | 'Fashion, Streetwear & Drops'
-  | 'Food, Cafes & Restaurants'
-  | 'Fitness, Health & Wellness'
-  | 'Beauty, Skincare & Hair'
-  | 'Music, Festivals & Events'
-  | 'Gaming, Gear & Entertainment'
-  | 'Local Spots & Neighborhood Places'
-  | 'Books, Education & Productivity';
-
-export type BrandCategory =
-  | 'E-Commerce & DTC Brands'
-  | 'Mobile Apps & Tech Tools'
-  | 'Streetwear & Apparel Drops'
   | 'Coffee Shop & Cafe'
   | 'Restaurant & Dining'
   | 'Gym & Fitness Studio'
   | 'Bakery & Dessert'
-  | 'Beauty, Wellness & Skincare'
+  | 'Beauty Salon, Spa & Skincare'
+  | 'Boutique & Local Retail'
   | 'Music, Festivals & Events'
-  | 'Local Professional Service';
+  | 'Bars, Pubs & Nightlife'
+  | 'Local Services & Experiences';
+
+export type BrandCategory =
+  | 'Coffee Shop & Cafe'
+  | 'Restaurant & Dining'
+  | 'Gym & Fitness Studio'
+  | 'Bakery & Dessert'
+  | 'Beauty Salon, Spa & Skincare'
+  | 'Boutique & Local Retail'
+  | 'Music, Festivals & Events'
+  | 'Bars, Pubs & Nightlife'
+  | 'Local Services & Experiences';
 
 export type AdFormatType =
-  | 'Link Sticker (Website URL)'
-  | 'App Store / Play Store Link'
-  | 'Exclusive Promo Code'
   | 'Location Tag & Venue Check-in'
-  | 'Audio / Music Tag';
+  | 'In-Store Promo Code'
+  | 'Menu / Booking Link Sticker'
+  | 'Event Ticket Link';
 
 export type PayoutMethod = 'Venmo' | 'PayPal' | 'Cash App' | 'Direct Bank Transfer' | 'Apple Cash';
 
@@ -63,7 +60,7 @@ export interface BusinessRegistration {
   websiteOrInstagram: string;
   category: BrandCategory;
   brandCategory?: BrandCategory;
-  brandType: 'dtc' | 'app' | 'local' | 'event' | 'DTC / E-Commerce' | 'Mobile App / Software' | 'Local Spot / Store' | 'Entertainment / Music' | 'Other Brand';
+  brandType: 'local' | 'event' | 'Local Spot / Store' | 'Entertainment / Music' | 'Other Brand';
   city: string;
   neighborhood: string;
   isGlobalOrNational?: boolean;
@@ -82,7 +79,7 @@ export interface SampleCampaign {
   id: string;
   businessName: string;
   category: BrandCategory;
-  brandType: 'DTC / E-Commerce' | 'Mobile App / Software' | 'Local Spot / Store' | 'Entertainment / Music';
+  brandType: 'Local Spot / Store' | 'Entertainment / Music';
   adFormat: AdFormatType;
   city: string;
   neighborhood?: string;
@@ -111,7 +108,7 @@ export interface CityDemandStat {
 export interface StoryAdMockup {
   id: string;
   advertiserName: string;
-  advertiserType: 'dtc' | 'app' | 'local' | 'event';
+  advertiserType: 'local' | 'event';
   handle: string;
   avatarUrl: string;
   backgroundImage: string;

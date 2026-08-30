@@ -13,23 +13,22 @@ interface BusinessSignupModalProps {
 }
 
 const BRAND_CATEGORIES: BrandCategory[] = [
-  'E-Commerce & DTC Brands',
-  'Mobile Apps & Tech Tools',
-  'Streetwear & Apparel Drops',
   'Coffee Shop & Cafe',
   'Restaurant & Dining',
   'Gym & Fitness Studio',
   'Bakery & Dessert',
-  'Beauty, Wellness & Skincare',
+  'Beauty Salon, Spa & Skincare',
+  'Boutique & Local Retail',
   'Music, Festivals & Events',
-  'Local Professional Service',
+  'Bars, Pubs & Nightlife',
+  'Local Services & Experiences',
 ];
 
 const AD_FORMAT_OPTIONS: AdFormatType[] = [
-  'Link Sticker (Website URL)',
-  'App Store / Play Store Link',
-  'Exclusive Promo Code',
   'Location Tag & Venue Check-in',
+  'In-Store Promo Code',
+  'Menu / Booking Link Sticker',
+  'Event Ticket Link',
 ];
 
 export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
@@ -43,12 +42,12 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [websiteOrInstagram, setWebsiteOrInstagram] = useState('');
-  const [brandCategory, setBrandCategory] = useState<BrandCategory>('E-Commerce & DTC Brands');
-  const [brandType, setBrandType] = useState<'dtc' | 'app' | 'local' | 'event'>('dtc');
+  const [brandCategory, setBrandCategory] = useState<BrandCategory>('Coffee Shop & Cafe');
+  const [brandType, setBrandType] = useState<'local' | 'event' | 'Local Spot / Store' | 'Entertainment / Music' | 'Other Brand'>('local');
   const [isGlobalOrNational, setIsGlobalOrNational] = useState(true);
   const [preferredAdFormats, setPreferredAdFormats] = useState<AdFormatType[]>([
-    'Link Sticker (Website URL)',
-    'Exclusive Promo Code',
+    'Menu / Booking Link Sticker',
+    'In-Store Promo Code',
   ]);
   const [city, setCity] = useState(initialCity || 'Austin, TX');
   const [neighborhood, setNeighborhood] = useState('');
@@ -199,7 +198,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
             type="button"
             onClick={resetAndClose}
             aria-label="Close dialog"
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-all cursor-pointer"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-all cursor-pointer"
           >
             <X className="w-5 h-5" aria-hidden="true" />
           </button>
@@ -383,7 +382,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                     setIsGlobalOrNational(true);
                     setBrandType('dtc');
                   }}
-                  className={`p-3 rounded-xl text-xs font-bold text-left transition-all border cursor-pointer ${
+                  className={`min-h-[44px] p-3 rounded-xl text-xs font-bold text-left transition-all border cursor-pointer ${
                     isGlobalOrNational
                       ? 'bg-purple-600/30 border-purple-500 text-white shadow-md'
                       : 'bg-slate-800/60 border-slate-700 text-slate-400 hover:text-slate-200'
@@ -394,7 +393,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                     <span>Nationwide / Online</span>
                   </p>
                   <p className="text-[10px] text-slate-400 mt-1 font-normal">
-                    E-Commerce DTC, Mobile Apps, Software, Digital Drops
+                    Local cafes, restaurants, gyms, boutiques, salons, venues
                   </p>
                 </button>
 
@@ -404,7 +403,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                     setIsGlobalOrNational(false);
                     setBrandType('local');
                   }}
-                  className={`p-3 rounded-xl text-xs font-bold text-left transition-all border cursor-pointer ${
+                  className={`min-h-[44px] p-3 rounded-xl text-xs font-bold text-left transition-all border cursor-pointer ${
                     !isGlobalOrNational
                       ? 'bg-purple-600/30 border-purple-500 text-white shadow-md'
                       : 'bg-slate-800/60 border-slate-700 text-slate-400 hover:text-slate-200'
@@ -433,7 +432,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                   placeholder="e.g. HydraPulse, FocusFlow, Velvet Roasters"
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
+                  className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
                   required
                 />
               </div>
@@ -448,7 +447,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                   placeholder="e.g. Sarah Lin (Founder/Marketing)"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
+                  className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
                   required
                 />
               </div>
@@ -466,7 +465,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                   placeholder="sarah@yourbrand.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
+                  className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
                   required
                 />
               </div>
@@ -481,7 +480,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                   placeholder="yourbrand.com or @yourbrand"
                   value={websiteOrInstagram}
                   onChange={(e) => setWebsiteOrInstagram(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
+                  className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
                 />
               </div>
             </div>
@@ -495,7 +494,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                 id="business-category-select"
                 value={brandCategory}
                 onChange={(e) => setBrandCategory(e.target.value as BrandCategory)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-purple-500 cursor-pointer"
+                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-purple-500 cursor-pointer"
               >
                 {BRAND_CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>
@@ -517,7 +516,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                     type="button"
                     aria-pressed={preferredAdFormats.includes(fmt)}
                     onClick={() => toggleAdFormat(fmt)}
-                    className={`p-2.5 rounded-xl text-xs font-semibold text-left transition-all border cursor-pointer flex items-center justify-between ${
+                    className={`min-h-[44px] p-2.5 rounded-xl text-xs font-semibold text-left transition-all border cursor-pointer flex items-center justify-between ${
                       preferredAdFormats.includes(fmt)
                         ? 'bg-purple-600/30 border-purple-500 text-white'
                         : 'bg-slate-800/40 border-slate-800 text-slate-400 hover:text-slate-200'
@@ -604,7 +603,7 @@ export const BusinessSignupModal: React.FC<BusinessSignupModalProps> = ({
                 placeholder="e.g. 25% link sticker discount for our electrolyte stickpacks, or free 30-day Pro trial for our new calendar app."
                 value={promotionGoal}
                 onChange={(e) => setPromotionGoal(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
+                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
               />
             </div>
 

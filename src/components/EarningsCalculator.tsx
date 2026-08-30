@@ -39,15 +39,14 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
   // Creator state
   const [storyViews, setStoryViews] = useState<number>(550);
   const [storiesPerMonth, setStoriesPerMonth] = useState<number>(3);
-  const [creatorFormat, setCreatorFormat] = useState<'dtc' | 'app' | 'drop' | 'local'>('dtc');
+  const [creatorFormat, setCreatorFormat] = useState<'cafe' | 'gym' | 'salon' | 'retail'>('cafe');
 
   // Calibrated fair rate based on format:
-  // DTC Link: $4.80/100, App Link: $5.50/100, Drop Promo: $4.50/100, Local Venue: $4.20/100
   const formatRates = {
-    dtc: { name: 'DTC Link Sticker', rate: 4.8, perk: 'Free $35+ Product Sample Packs' },
-    app: { name: 'App Store / Play Link', rate: 5.5, perk: 'Free Lifetime Pro Subscriptions' },
-    drop: { name: 'Promo Code & Apparel', rate: 4.5, perk: 'Free Limited Capsule Merch' },
-    local: { name: 'Local Spot & Cafe Tag', rate: 4.2, perk: 'Free Specialty Meals & Drinks' },
+    cafe: { name: 'Café & Dining (Location Tag)', rate: 4.8, perk: 'Free Specialty Meals & Drinks' },
+    gym: { name: 'Gym & Fitness (Booking Link)', rate: 5.5, perk: 'Free Month Memberships' },
+    salon: { name: 'Salon & Beauty (Promo Code)', rate: 4.5, perk: 'Free Hair or Skin Treatments' },
+    retail: { name: 'Local Boutique (Location Tag)', rate: 4.2, perk: 'Free $50+ Store Credits' },
   };
 
   const currentRate = formatRates[creatorFormat].rate;
@@ -59,13 +58,13 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
 
   // Advertiser state
   const [businessBudget, setBusinessBudget] = useState<number>(500);
-  const [advertiserType, setAdvertiserType] = useState<'dtc' | 'app' | 'drop' | 'local'>('dtc');
+  const [advertiserType, setAdvertiserType] = useState<'cafe' | 'gym' | 'salon' | 'retail'>('cafe');
 
   const adTypeRates = {
-    dtc: { rate: 4.8, ctr: 0.048, label: 'E-Commerce Link Sticker', cpm: '$48 CPM (Peer Trust)' },
-    app: { rate: 5.5, ctr: 0.035, label: 'Mobile App Installs', cpm: '$55 CPM (Peer Trust)' },
-    drop: { rate: 4.5, ctr: 0.032, label: 'Exclusive Promo Drops', cpm: '$45 CPM (Peer Trust)' },
-    local: { rate: 4.2, ctr: 0.042, label: 'Neighborhood Venue Tag', cpm: '$42 CPM (Local Trust)' },
+    cafe: { rate: 4.8, ctr: 0.048, label: 'Menu & Booking Links', cpm: '$48 CPM (Local Trust)' },
+    gym: { rate: 5.5, ctr: 0.035, label: 'Free Pass Link Stickers', cpm: '$55 CPM (Local Trust)' },
+    salon: { rate: 4.5, ctr: 0.032, label: 'In-Store Promo Codes', cpm: '$45 CPM (Local Trust)' },
+    retail: { rate: 4.2, ctr: 0.042, label: 'Venue Location Tags', cpm: '$42 CPM (Local Trust)' },
   };
 
   const selectedRateObj = adTypeRates[advertiserType];
@@ -76,28 +75,28 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
   // Dynamic impact metrics
   const getImpactMetrics = () => {
     switch (advertiserType) {
-      case 'dtc':
+      case 'cafe':
         return {
           title: 'Est. Direct Link Taps',
           count: Math.round(estTotalImpressions * selectedRateObj.ctr),
           subtext: 'High-intent product link taps via Instagram Story Link Stickers (4.8% avg CTR vs 0.6% on Meta Ads)',
           metaEquivClicks: Math.round(((businessBudget / 32) * 1000) * 0.006)
         };
-      case 'app':
+      case 'gym':
         return {
           title: 'Est. App Store Installs',
           count: Math.round(estTotalImpressions * selectedRateObj.ctr),
           subtext: 'Direct App Store downloads driven by authentic friend-to-friend story shares (3.5% avg conversion)',
           metaEquivClicks: Math.round(((businessBudget / 32) * 1000) * 0.006)
         };
-      case 'drop':
+      case 'salon':
         return {
           title: 'Est. Promo Code Purchases',
           count: Math.round(estTotalImpressions * selectedRateObj.ctr),
           subtext: 'Direct checkout orders using unique creator discount codes during capsule drops',
           metaEquivClicks: Math.round(((businessBudget / 32) * 1000) * 0.006)
         };
-      case 'local':
+      case 'retail':
         return {
           title: 'Est. Local Customer Visits',
           count: Math.round(estTotalImpressions * selectedRateObj.ctr),
@@ -186,10 +185,10 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {[
-                      { id: 'dtc', label: 'DTC Products', rate: '$4.80/100' },
-                      { id: 'app', label: 'Mobile Apps', rate: '$5.50/100' },
-                      { id: 'drop', label: 'Streetwear', rate: '$4.50/100' },
-                      { id: 'local', label: 'Local Spots', rate: '$4.20/100' },
+                      { id: 'cafe', label: 'Cafés & Food', rate: '$4.80/100' },
+                      { id: 'gym', label: 'Gyms & Studios', rate: '$5.50/100' },
+                      { id: 'salon', label: 'Salons & Spas', rate: '$4.50/100' },
+                      { id: 'retail', label: 'Local Boutiques', rate: '$4.20/100' },
                     ].map((fmt) => (
                       <button
                         key={fmt.id}
@@ -349,10 +348,10 @@ export const EarningsCalculator: React.FC<EarningsCalculatorProps> = ({
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {[
-                      { id: 'dtc', label: 'E-Commerce / DTC', icon: ShoppingBag },
-                      { id: 'app', label: 'Mobile App / Tech', icon: Smartphone },
-                      { id: 'drop', label: 'Fashion / Drop', icon: Tag },
-                      { id: 'local', label: 'Local Spot / Cafe', icon: Store },
+                      { id: 'cafe', label: 'Cafés & Dining', icon: Coffee },
+                      { id: 'gym', label: 'Gyms & Fitness', icon: Users },
+                      { id: 'salon', label: 'Salons & Beauty', icon: Sparkles },
+                      { id: 'retail', label: 'Local Retail', icon: Store },
                     ].map((item) => {
                       const Icon = item.icon;
                       return (

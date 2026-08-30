@@ -15,24 +15,24 @@ export const SampleCampaigns: React.FC<SampleCampaignsProps> = ({
   const [activeCampaign, setActiveCampaign] = useState<SampleCampaign | null>(null);
   const [selectedFilter, setSelectedFilter] = useState<string>('All');
 
-  const categories = ['All', 'DTC & E-Commerce', 'Mobile Apps & Tech', 'Streetwear & Apparel', 'Local Spots & Cafes'];
+  const categories = ['All', 'Cafés & Dining', 'Gyms & Fitness', 'Salons & Beauty', 'Retail & Events'];
 
   const filteredCampaigns = SAMPLE_CAMPAIGNS.filter((camp) => {
     if (selectedFilter === 'All') return true;
-    if (selectedFilter === 'DTC & E-Commerce') return camp.category.includes('DTC') || camp.category.includes('Beauty') || camp.adFormat === 'Link Sticker (Website URL)';
-    if (selectedFilter === 'Mobile Apps & Tech') return camp.category.includes('Apps') || camp.category.includes('Tech') || camp.adFormat === 'App Store / Play Store Link';
-    if (selectedFilter === 'Streetwear & Apparel') return camp.category.includes('Streetwear') || camp.adFormat === 'Exclusive Promo Code';
-    if (selectedFilter === 'Local Spots & Cafes') return camp.category.includes('Cafe') || camp.category.includes('Bakery') || camp.category.includes('Gym') || camp.adFormat === 'Location Tag & Venue Check-in';
+    if (selectedFilter === 'Cafés & Dining') return camp.category.includes('Cafe') || camp.category.includes('Restaurant') || camp.category.includes('Bakery');
+    if (selectedFilter === 'Gyms & Fitness') return camp.category.includes('Gym') || camp.category.includes('Fitness');
+    if (selectedFilter === 'Salons & Beauty') return camp.category.includes('Beauty') || camp.category.includes('Salon');
+    if (selectedFilter === 'Retail & Events') return camp.category.includes('Retail') || camp.category.includes('Boutique') || camp.category.includes('Event') || camp.category.includes('Music');
     return true;
   });
 
   const getFormatBadgeIcon = (format: AdFormatType) => {
     switch (format) {
-      case 'Link Sticker (Website URL)':
+      case 'Menu / Booking Link Sticker':
         return <Link className="w-3 h-3 text-cyan-400" />;
-      case 'App Store / Play Store Link':
+      case 'Event Ticket Link':
         return <Smartphone className="w-3 h-3 text-purple-400" />;
-      case 'Exclusive Promo Code':
+      case 'In-Store Promo Code':
         return <Tag className="w-3 h-3 text-amber-400" />;
       case 'Location Tag & Venue Check-in':
         return <MapPin className="w-3 h-3 text-emerald-400" />;

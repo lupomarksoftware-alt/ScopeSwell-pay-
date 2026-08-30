@@ -28,7 +28,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
             How ScopeSwell Pay Works
           </h2>
           <p className="mt-3 text-slate-300 text-base sm:text-lg">
-            No complex contracts, no follower vanity minimums. Direct-to-Consumer brands, mobile apps, drops, and local spots pay everyday Instagram users based strictly on verified story views.
+            No complex contracts, no follower vanity minimums. Cafés, restaurants, salons, gyms, and local boutiques pay everyday Instagram users based strictly on verified story views.
           </p>
 
           {/* Tab Switcher */}
@@ -64,7 +64,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                For Brands, Apps & Businesses (Advertise)
+                For Local Businesses (Advertise)
               </button>
             </div>
           </div>
@@ -91,7 +91,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
                       <span>Pick your favorite niches & ad formats</span>
                     </h3>
                     <p className="mt-1 text-sm text-slate-300">
-                      Select what you love: DTC brands, mobile apps, streetwear, gaming, fitness, food, or local spots. Choose your preferred formats (link stickers, app buttons, promo codes). We never ask for your password.
+                      Select what you love: local restaurants, cafés, gyms, salons, boutiques, or local events. Choose your preferred formats (location tags, menu links, in-store promo codes). We never ask for your password.
                     </p>
                   </div>
                 </div>
@@ -106,7 +106,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
                       <span>Receive direct campaign match invites</span>
                     </h3>
                     <p className="mt-1 text-sm text-slate-300">
-                      When a brand or app matches your profile, you get an SMS/email invite with the offer details, payout rate per 100 views, custom link sticker, and any free product perks.
+                      When a local business matches your profile, you get an SMS/email invite with the offer details, payout rate per 100 views, custom link sticker, and any free product perks.
                     </p>
                   </div>
                 </div>
@@ -121,7 +121,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
                       <span>Post an authentic 15-second Story</span>
                     </h3>
                     <p className="mt-1 text-sm text-slate-300">
-                      Share an honest photo, video, or screenshot featuring the product, app, or venue with their custom link sticker or promo code so your friends can check it out.
+                      Share an honest photo, video, or screenshot featuring the local venue, product, or experience with their custom link sticker or promo code so your friends can check it out.
                     </p>
                   </div>
                 </div>
@@ -163,7 +163,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
                       <span>Choose your ad format & campaign objective</span>
                     </h3>
                     <p className="mt-1 text-sm text-slate-300">
-                      Promote an e-commerce store (link sticker), iOS/Android app (App Store link), drop (exclusive promo code), or local venue (location tag).
+                      Promote an restaurant (menu link), gym (booking link), salon (promo code), or local boutique (location tag).
                     </p>
                   </div>
                 </div>
@@ -178,7 +178,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
                       <span>Targeted everyday creators get matched</span>
                     </h3>
                     <p className="mt-1 text-sm text-slate-300">
-                      ScopeSwell Pay matches your product or app with active everyday users whose audience demographics and personal interests match your ideal buyers.
+                      ScopeSwell Pay matches your local business with active everyday users whose audience demographics and personal interests match your ideal buyers.
                     </p>
                   </div>
                 </div>
@@ -193,7 +193,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
                       <span>Authentic recommendation stories go live</span>
                     </h3>
                     <p className="mt-1 text-sm text-slate-300">
-                      Creators post genuine recommendation stories featuring your product, app link, or promo code. Their close friends and followers see authentic peer endorsements.
+                      Creators post genuine recommendation stories featuring your venue, menu link, or in-store promo code. Their close friends and followers see authentic peer endorsements.
                     </p>
                   </div>
                 </div>
@@ -218,7 +218,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({
                     onClick={onOpenBusinessModal}
                     className="px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-lg shadow-purple-600/25 transition-all flex items-center gap-2 cursor-pointer"
                   >
-                    <span>Register Brand / App Pilot</span>
+                    <span>Register Local Business Pilot</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>

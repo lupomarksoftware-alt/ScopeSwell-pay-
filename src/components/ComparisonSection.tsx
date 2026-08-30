@@ -309,7 +309,7 @@ export const ComparisonSection: React.FC = () => {
             </div>
             <h3 className="text-base font-bold text-white">Authentic Social Proof</h3>
             <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Friends don't scroll past friends. When everyday people recommend an app or product, their circles pay attention and take action.
+              Friends don't scroll past friends. When everyday people recommend a local venue or service, their circles pay attention and take action.
             </p>
           </div>
 
@@ -329,7 +329,7 @@ export const ComparisonSection: React.FC = () => {
             </div>
             <h3 className="text-base font-bold text-white">5x Higher Click Rates</h3>
             <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Instagram Story Link Stickers and App Store buttons turn curiosity into instant visits, installs, and promo code checkouts with zero friction.
+              Location tags and menu link stickers turn curiosity into instant visits, bookings, and in-store checkouts with zero friction.
             </p>
           </div>
 

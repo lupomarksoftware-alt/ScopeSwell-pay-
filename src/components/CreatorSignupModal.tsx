@@ -13,22 +13,21 @@ interface CreatorSignupModalProps {
 }
 
 const ALL_NICHES: { label: CreatorNiche; emoji: string }[] = [
-  { label: 'E-Commerce & DTC Brands', emoji: '📦' },
-  { label: 'Mobile Apps & Tech Tools', emoji: '📱' },
-  { label: 'Fashion, Streetwear & Drops', emoji: '👟' },
-  { label: 'Food, Cafes & Restaurants', emoji: '🍕' },
-  { label: 'Fitness, Health & Wellness', emoji: '🧘' },
-  { label: 'Beauty, Skincare & Hair', emoji: '✨' },
+  { label: 'Coffee Shop & Cafe', emoji: '📦' },
+  { label: 'Restaurant & Dining', emoji: '📱' },
+  { label: 'Gym & Fitness Studio', emoji: '👟' },
+  { label: 'Bakery & Dessert', emoji: '🍕' },
+  { label: 'Beauty Salon, Spa & Skincare', emoji: '🧘' },
+  { label: 'Boutique & Local Retail', emoji: '✨' },
   { label: 'Music, Festivals & Events', emoji: '🎟️' },
-  { label: 'Gaming, Gear & Entertainment', emoji: '🎮' },
-  { label: 'Local Spots & Neighborhood Places', emoji: '🌆' },
-  { label: 'Books, Education & Productivity', emoji: '📚' },
+  { label: 'Bars, Pubs & Nightlife', emoji: '🎮' },
+  { label: 'Local Services & Experiences', emoji: '🌆' },
 ];
 
 const AD_FORMATS: { label: AdFormatType; desc: string }[] = [
-  { label: 'Link Sticker (Website URL)', desc: 'Direct link to online stores & products' },
-  { label: 'App Store / Play Store Link', desc: 'Download link for iOS & Android apps' },
-  { label: 'Exclusive Promo Code', desc: 'Special discount code for your followers' },
+  { label: 'Menu / Booking Link Sticker', desc: 'Direct link to online stores & products' },
+  { label: 'Event Ticket Link', desc: 'Download link for iOS & Android apps' },
+  { label: 'In-Store Promo Code', desc: 'Special discount code for your followers' },
   { label: 'Location Tag & Venue Check-in', desc: 'Tag local spot or physical store' },
 ];
 
@@ -44,13 +43,13 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
   const [neighborhood, setNeighborhood] = useState('');
   const [avgViews, setAvgViews] = useState<number>(550);
   const [selectedNiches, setSelectedNiches] = useState<CreatorNiche[]>([
-    'E-Commerce & DTC Brands',
-    'Mobile Apps & Tech Tools',
+    'Coffee Shop & Cafe',
+    'Restaurant & Dining',
   ]);
   const [preferredAdFormats, setPreferredAdFormats] = useState<AdFormatType[]>([
-    'Link Sticker (Website URL)',
-    'App Store / Play Store Link',
-    'Exclusive Promo Code',
+    'Menu / Booking Link Sticker',
+    'Event Ticket Link',
+    'In-Store Promo Code',
   ]);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -225,7 +224,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
             type="button"
             onClick={resetAndClose}
             aria-label="Close dialog"
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-all cursor-pointer"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-all cursor-pointer"
           >
             <X className="w-5 h-5" aria-hidden="true" />
           </button>
@@ -331,7 +330,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                   <Shield className="w-4 h-4 text-indigo-400" />
                   <span>What happens next:</span>
                 </p>
-                <p>1. We match your profile with DTC brands, app developers, and venues looking for authentic story shoutouts.</p>
+                <p>1. We match your profile with local restaurants, gyms, salons, and boutiques looking for authentic story shoutouts.</p>
                 <p>2. You receive an invite with the offer details, link sticker/code, and payout rate per 100 views.</p>
                 <p>3. You decide whether to post — 100% voluntary, no spam.</p>
               </div>
@@ -365,7 +364,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                     placeholder="e.g. Maya Lin"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
                   />
                 </div>
 
@@ -401,7 +400,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                     placeholder="e.g. Austin, TX"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
                   />
                 </div>
 
@@ -415,7 +414,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                     placeholder="e.g. South Congress / East Side"
                     value={neighborhood}
                     onChange={(e) => setNeighborhood(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
                   />
                 </div>
               </div>
@@ -463,7 +462,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                         type="button"
                         key={fmt.label}
                         onClick={() => toggleAdFormat(fmt.label)}
-                        className={`p-2.5 rounded-xl text-xs text-left transition-all border cursor-pointer ${
+                        className={`min-h-[44px] p-2.5 rounded-xl text-xs text-left transition-all border cursor-pointer ${
                           isSelected
                             ? 'bg-rose-500/20 border-rose-500 text-white font-bold'
                             : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-slate-200'
@@ -520,7 +519,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                     placeholder="you@gmail.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
                   />
                 </div>
 
@@ -534,7 +533,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                     placeholder="(555) 000-0000"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
                   />
                 </div>
               </div>
@@ -549,7 +548,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                     id="creator-payout-method-select"
                     value={payoutMethod}
                     onChange={(e) => setPayoutMethod(e.target.value as PayoutMethod)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white cursor-pointer"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white cursor-pointer"
                   >
                     <option value="Venmo">Venmo</option>
                     <option value="Cash App">Cash App</option>
@@ -569,7 +568,7 @@ export const CreatorSignupModal: React.FC<CreatorSignupModalProps> = ({
                     placeholder="@your-payment-handle"
                     value={payoutHandle}
                     onChange={(e) => setPayoutHandle(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-rose-500 focus:outline-none text-sm text-white placeholder-slate-500"
                   />
                 </div>
               </div>
