@@ -24,13 +24,13 @@ export const ComparisonSection: React.FC = () => {
   const [testBudget, setTestBudget] = useState<number>(500);
 
   // Math for comparison with $testBudget
-  // ScopeSwell: ~$4.80 / 100 views => (500 / 4.8) * 100 = ~10,400 verified views
-  // CTR: 4.8% => ~500 clicks
+  // ScopeSwell: ~€4.50 / 100 reach => (500 / 4.5) * 100 = ~11,100 verified accounts reached
+  // CTR: 4.8% => ~530 clicks
   // Meta/Instagram Ads: CPM $32 => (500 / 32) * 1000 = ~15,625 impressions
   // CTR: 0.6% => ~94 clicks, ~20% bot/accidental clicks
-  // Macro Influencer: $500 flat fee => 1 post, generic promo, zero view guarantee
+  // Macro Influencer: $500 flat fee => 1 post, generic promo, zero reach guarantee
 
-  const scopeSwellViews = Math.round((testBudget / 4.8) * 100);
+  const scopeSwellViews = Math.round((testBudget / 4.5) * 100);
   const scopeSwellClicks = Math.round(scopeSwellViews * 0.048);
   const scopeSwellCreators = Math.max(3, Math.round(scopeSwellViews / 580));
 
@@ -38,7 +38,7 @@ export const ComparisonSection: React.FC = () => {
   const metaClicks = Math.round(metaImpressions * 0.006);
 
   return (
-    <section id="comparison" className="py-16 md:py-24 bg-slate-950/80 border-t border-slate-900 relative overflow-hidden">
+    <section id="comparison" className="py-16 md:py-24 bg-slate-950/30 border-t border-slate-900/80 relative overflow-hidden backdrop-blur-[1px]">
       {/* Background radial accent */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-rose-600/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
@@ -116,9 +116,9 @@ export const ComparisonSection: React.FC = () => {
                   </div>
 
                   <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
-                    <p className="text-[11px] text-slate-400">Verified Human Views</p>
+                    <p className="text-[11px] text-slate-400">Verified Unique Reach</p>
                     <p className="text-2xl font-black text-white font-mono">{scopeSwellViews.toLocaleString()}</p>
-                    <p className="text-[10px] text-slate-400 mt-0.5">100% verified 24h story eyes</p>
+                    <p className="text-[10px] text-slate-400 mt-0.5">100% verified unique accounts reached</p>
                   </div>
                 </div>
 
@@ -133,11 +133,11 @@ export const ComparisonSection: React.FC = () => {
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span><strong className="text-white">Zero Bot Traffic:</strong> View counts verified directly from Instagram Insights</span>
+                    <span><strong className="text-white">Zero Bot Traffic:</strong> Accounts Reached verified directly from Instagram Insights</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span><strong className="text-white">Pay-Per-View Guarantee:</strong> Unused impressions refunded automatically</span>
+                    <span><strong className="text-white">Pay-Per-Reach Guarantee:</strong> Unused reach budget refunded automatically</span>
                   </li>
                 </ul>
               </div>
@@ -255,7 +255,7 @@ export const ComparisonSection: React.FC = () => {
                 <p className="text-xs text-slate-400">How you are billed and performance protected</p>
               </div>
               <div className="col-span-3 text-center bg-rose-500/10 rounded-xl py-2 px-1 border border-rose-500/20">
-                <span className="font-bold text-emerald-300 text-xs sm:text-sm">Pay Strictly Verified Views</span>
+                <span className="font-bold text-emerald-300 text-xs sm:text-sm">Pay Strictly Verified Reach</span>
               </div>
               <div className="col-span-2.5 text-center text-slate-400 text-xs">
                 Billed on CPM impressions regardless of real attention
@@ -317,9 +317,9 @@ export const ComparisonSection: React.FC = () => {
             <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white">100% Fair Pay-Per-View</h3>
+            <h3 className="text-base font-bold text-white">100% Fair Pay-Per-Reach</h3>
             <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Advertisers only pay for verified human eyes ($4.20 - $5.80 / 100 views). Creators get honest cash for every single friend who watches.
+              Advertisers only pay for verified unique accounts reached (€3.00 - €7.00 / 100 reach). Creators get honest cash for every verified person reached.
             </p>
           </div>
 
@@ -339,7 +339,7 @@ export const ComparisonSection: React.FC = () => {
             </div>
             <h3 className="text-base font-bold text-white">Zero Bot Waste</h3>
             <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Unlike programmatic networks plagued by automated crawlers, every view is verified via native 24h Instagram Story Insights screenshots.
+              Unlike programmatic networks plagued by automated crawlers, every account is verified via native 24h Instagram Story Insights screenshots.
             </p>
           </div>
         </div>

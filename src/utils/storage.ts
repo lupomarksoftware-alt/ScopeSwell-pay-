@@ -1,70 +1,32 @@
-import { BusinessRegistration, CreatorRegistration } from '../types';
-import { INITIAL_BUSINESSES, INITIAL_CREATORS } from '../data/initialData';
+import { FeedbackReport } from '../types';
 
-const CREATORS_KEY = 'scopeswell_creators_v1';
-const BUSINESSES_KEY = 'scopeswell_businesses_v1';
+const FEEDBACK_KEY = 'scopeswell_user_feedback_v1';
 
-export function getStoredCreators(): CreatorRegistration[] {
+export function getStoredFeedbackReports(): FeedbackReport[] {
   try {
-    const raw = localStorage.getItem(CREATORS_KEY);
+    const raw = localStorage.getItem(FEEDBACK_KEY);
     if (!raw) {
-      localStorage.setItem(CREATORS_KEY, JSON.stringify(INITIAL_CREATORS));
-      return INITIAL_CREATORS;
+      return [];
     }
     return JSON.parse(raw);
   } catch {
-    return INITIAL_CREATORS;
+    return [];
   }
 }
 
-export function saveCreator(creator: Omit<CreatorRegistration, 'id' | 'createdAt' | 'queueNumber'>): CreatorRegistration {
-  const existing = getStoredCreators();
-  const newCreator: CreatorRegistration = {
-    ...creator,
-    id: `cr-${Date.now()}`,
+export function saveFeedbackReport(report: Omit<FeedbackReport, 'id' | 'createdAt' | 'status'>): FeedbackReport {
+  const existing = getStoredFeedbackReports();
+  const newReport: FeedbackReport = {
+    ...report,
+    id: `fb-${Date.now()}`,
     createdAt: new Date().toISOString(),
-    queueNumber: existing.length + 1420,
+    status: 'Received',
   };
-  const updated = [newCreator, ...existing];
+  const updated = [newReport, ...existing];
   try {
-    localStorage.setItem(CREATORS_KEY, JSON.stringify(updated));
+    localStorage.setItem(FEEDBACK_KEY, JSON.stringify(updated));
   } catch (e) {
-    console.error('Failed to save creator to localStorage', e);
+    console.error('Failed to save feedback to localStorage', e);
   }
-  return newCreator;
-}
-
-export function getStoredBusinesses(): BusinessRegistration[] {
-  try {
-    const raw = localStorage.getItem(BUSINESSES_KEY);
-    if (!raw) {
-      localStorage.setItem(BUSINESSES_KEY, JSON.stringify(INITIAL_BUSINESSES));
-      return INITIAL_BUSINESSES;
-    }
-    return JSON.parse(raw);
-  } catch {
-    return INITIAL_BUSINESSES;
-  }
-}
-
-export function saveBusiness(biz: Omit<BusinessRegistration, 'id' | 'createdAt' | 'pilotPriority'>): BusinessRegistration {
-  const existing = getStoredBusinesses();
-  const newBiz: BusinessRegistration = {
-    ...biz,
-    id: `biz-${Date.now()}`,
-    createdAt: new Date().toISOString(),
-    pilotPriority: 'VIP Fast-Track',
-  };
-  const updated = [newBiz, ...existing];
-  try {
-    localStorage.setItem(BUSINESSES_KEY, JSON.stringify(updated));
-  } catch (e) {
-    console.error('Failed to save business to localStorage', e);
-  }
-  return newBiz;
-}
-
-export function resetToSeedData() {
-  localStorage.setItem(CREATORS_KEY, JSON.stringify(INITIAL_CREATORS));
-  localStorage.setItem(BUSINESSES_KEY, JSON.stringify(INITIAL_BUSINESSES));
+  return newReport;
 }

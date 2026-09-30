@@ -1,141 +1,174 @@
-import React, { useState } from 'react';
-import { Instagram, Store, ShieldCheck, Heart, Sparkles, Mail, Check, Copy, ArrowUpRight } from 'lucide-react';
+import React from 'react';
+import { Sparkles, Instagram, Store, ShieldCheck, Mail, Smartphone, Globe, ExternalLink, ArrowUp, Bug, MessageSquare } from 'lucide-react';
 import { MAIN_EMAIL } from '../utils/notifications';
+import { APP_CONFIG } from '../config/constants';
 
 interface FooterProps {
-  onOpenCreatorModal: () => void;
-  onOpenBusinessModal: () => void;
+  onOpenPWAModal: () => void;
+  onOpenInstagramSwitchModal: () => void;
+  onOpenFeedbackModal: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
-  onOpenCreatorModal,
-  onOpenBusinessModal,
+  onOpenPWAModal,
+  onOpenInstagramSwitchModal,
+  onOpenFeedbackModal,
 }) => {
-  const [copiedEmail, setCopiedEmail] = useState(false);
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(MAIN_EMAIL);
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2000);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="bg-slate-950 border-t border-slate-900 pt-16 pb-12 text-slate-400 text-xs">
+    <footer className="bg-[#070a10]/60 border-t border-slate-900/80 text-slate-400 text-xs py-14 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-900">
           {/* Brand Col */}
           <div className="md:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white font-bold font-['Space_Grotesk'] text-base shadow-md">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white font-black font-['Space_Grotesk'] text-base shadow-md">
                 S
               </div>
-              <span className="text-xl font-extrabold tracking-tight text-white font-['Space_Grotesk']">
-                ScopeSwell <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-amber-300">Pay</span>
-              </span>
+              <div>
+                <span className="text-lg font-bold text-white tracking-tight font-['Space_Grotesk']">
+                  ScopeSwell <span className="text-rose-400">Platform</span>
+                </span>
+                <p className="text-[11px] text-slate-500">Official App Documentation & Portal</p>
+              </div>
             </div>
-            <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
-              Empowering direct-to-consumer brands, mobile apps, drops, and local spots to sponsor authentic Instagram stories with verified pay-per-view delivery.
+
+            <p className="text-slate-400 leading-relaxed max-w-sm">
+              Connecting verified local creators with businesses. 100% transparent pay-per-reach model backed by automated escrow and verified 24h Instagram Story Accounts Reached on <strong className="text-white">scopeswell.com</strong>.
             </p>
-          </div>
 
-          {/* For Creators */}
-          <div className="md:col-span-2 space-y-3">
-            <p className="font-bold text-white uppercase tracking-wider text-[11px]">For Creators</p>
-            <ul className="space-y-2">
-              <li>
-                <button
-                  onClick={onOpenCreatorModal}
-                  className="hover:text-white transition-colors cursor-pointer text-left inline-block py-1.5 sm:py-0"
-                >
-                  Join Creator Waitlist
-                </button>
-              </li>
-              <li>
-                <a href="#calculator" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
-                  Earnings Calculator
-                </a>
-              </li>
-              <li>
-                <a href="#how-it-works" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
-                  How 24h Payouts Work
-                </a>
-              </li>
-              <li>
-                <a href="#campaigns" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
-                  Browse Ad Formats
-                </a>
-              </li>
-            </ul>
-          </div>
+            <div className="flex items-center gap-2 pt-1 flex-wrap">
+              <a
+                href={APP_CONFIG.appUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-rose-500 to-amber-500 text-white font-bold flex items-center gap-1.5 cursor-pointer shadow"
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+                <span>Launch scopeswell.com</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
 
-          {/* For Brands & Advertisers */}
-          <div className="md:col-span-2 space-y-3">
-            <p className="font-bold text-white uppercase tracking-wider text-[11px]">For Advertisers</p>
-            <ul className="space-y-2">
-              <li>
-                <button
-                  onClick={onOpenBusinessModal}
-                  className="hover:text-white transition-colors cursor-pointer text-left inline-block py-1.5 sm:py-0"
-                >
-                  Register Brand / App Pilot
-                </button>
-              </li>
-              <li>
-                <a href="#calculator" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
-                  Campaign ROI Estimator
-                </a>
-              </li>
-              <li>
-                <a href="#comparison" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
-                  Compare vs Influencers
-                </a>
-              </li>
-              <li>
-                <a href="#cities" className="hover:text-white transition-colors inline-block py-1.5 sm:py-0">
-                  Launch Cities & Reach
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact & Main Email */}
-          <div className="md:col-span-4 space-y-3">
-            <p className="font-bold text-white uppercase tracking-wider text-[11px]">Direct Contact & Intake</p>
-            <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2.5">
-              <div className="flex items-center gap-2 text-slate-300">
-                <Mail className="w-4 h-4 text-rose-400 shrink-0" aria-hidden="true" />
-                <span className="font-semibold text-white">Central Operations Inbox:</span>
-              </div>
-              <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-950 border border-slate-800 text-[11px]">
-                <a
-                  href={`mailto:${MAIN_EMAIL}`}
-                  className="font-mono text-rose-300 hover:text-white transition-colors truncate"
-                  title="Send email directly"
-                >
-                  {MAIN_EMAIL}
-                </a>
-                <button
-                  onClick={handleCopyEmail}
-                  aria-label="Copy email to clipboard"
-                  className="p-2 sm:p-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer shrink-0"
-                  title="Copy email to clipboard"
-                >
-                  {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" /> : <Copy className="w-3.5 h-3.5" aria-hidden="true" />}
-                </button>
-              </div>
-              <p className="text-[10px] text-slate-400 leading-relaxed">
-                All creator applications, pilot requests, and direct questions are answered within 24 hours at this address.
-              </p>
+              <button
+                onClick={onOpenFeedbackModal}
+                className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 hover:text-white font-semibold flex items-center gap-1.5 cursor-pointer"
+              >
+                <Bug className="w-3.5 h-3.5 text-rose-400" />
+                <span>Report Issue</span>
+              </button>
             </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">App Documentation</h4>
+            <ul className="space-y-2 text-slate-400">
+              <li>
+                <a href="#rates" className="hover:text-white transition-colors">
+                  Currency & Fixed City Rates
+                </a>
+              </li>
+              <li>
+                <a href="#creator-guide" className="hover:text-white transition-colors">
+                  Creator Guide & Workflow
+                </a>
+              </li>
+              <li>
+                <button
+                  onClick={onOpenInstagramSwitchModal}
+                  className="text-left hover:text-rose-300 transition-colors cursor-pointer"
+                >
+                  Instagram Professional Account (30s)
+                </button>
+              </li>
+              <li>
+                <a href="#business-guide" className="hover:text-white transition-colors">
+                  Business Guide & Automated Escrow
+                </a>
+              </li>
+              <li>
+                <a href="#security" className="hover:text-white transition-colors">
+                  Security & Proof Audit Engine
+                </a>
+              </li>
+              <li>
+                <a href="#pwa-showcase" className="hover:text-white transition-colors">
+                  Interactive Platform Emulator
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* City Rates Quick Reference */}
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Fixed City Rates</h4>
+            <ul className="space-y-1.5 text-slate-400 font-mono text-[11px]">
+              <li className="flex justify-between">
+                <span>Tallinn (Baltic Standard):</span>
+                <span className="text-emerald-400 font-bold">€0.03 / reach</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Riga / Vilnius:</span>
+                <span className="text-emerald-400 font-bold">€0.03 / reach</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Helsinki / Berlin:</span>
+                <span className="text-emerald-400 font-bold">€0.05 / reach</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Stockholm / London / Paris:</span>
+                <span className="text-emerald-400 font-bold">€0.06 / reach</span>
+              </li>
+              <li className="flex justify-between">
+                <span>New York / Los Angeles:</span>
+                <span className="text-emerald-400 font-bold">€0.07 / reach</span>
+              </li>
+              <li className="text-[10px] text-slate-500 pt-1">
+                * Flat 15% platform service fee handles escrow & audit
+              </li>
+            </ul>
+          </div>
+
+          {/* Feedback & Support Desk */}
+          <div className="md:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Feedback Desk</h4>
+            <p className="text-[11px] text-slate-400 leading-relaxed">
+              Encountered a bug or have questions regarding your account or campaigns?
+            </p>
+            <button
+              onClick={onOpenFeedbackModal}
+              className="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-800 text-rose-300 hover:text-white font-semibold flex items-center justify-center gap-1.5 cursor-pointer text-xs"
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>Feedback & Bugs</span>
+            </button>
+            <a
+              href={`mailto:${MAIN_EMAIL}`}
+              className="inline-flex items-center gap-1.5 text-slate-400 hover:text-white font-medium text-[11px] break-all pt-1"
+            >
+              <Mail className="w-3.5 h-3.5 shrink-0 text-slate-500" />
+              <span>{MAIN_EMAIL}</span>
+            </a>
           </div>
         </div>
 
-        {/* Bottom copyright & disclaimer */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 text-[11px]">
-          <p>© {new Date().getFullYear()} ScopeSwell Pay. All rights reserved.</p>
-          <p className="text-center sm:text-right">
-            Intake Contact: <a href={`mailto:${MAIN_EMAIL}`} className="text-slate-400 hover:text-white underline">{MAIN_EMAIL}</a> • Independent platform.
-          </p>
+        {/* Bottom copyright */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
+          <p>© {new Date().getFullYear()} ScopeSwell. Official Web App live on scopeswell.com.</p>
+          <div className="flex items-center gap-4">
+            <a href="#rates" className="hover:text-slate-400">Rate Policy</a>
+            <a href="#security" className="hover:text-slate-400">Escrow Terms</a>
+            <button
+              onClick={scrollToTop}
+              className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+            >
+              <ArrowUp className="w-3.5 h-3.5" />
+              <span>Top</span>
+            </button>
+          </div>
         </div>
       </div>
     </footer>

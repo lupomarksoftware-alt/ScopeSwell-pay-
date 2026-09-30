@@ -2,11 +2,11 @@
  * Platform Global Configuration & Contacts
  */
 export const APP_CONFIG = {
-  appName: 'ScopeSwell Pay',
-  tagline: 'Instagram Story Marketplace for All Ad Types',
+  appName: 'ScopeSwell',
+  tagline: 'Automated Pay-Per-Reach Instagram Story Platform',
+  appUrl: 'https://scopeswell.com',
+  displayDomain: 'scopeswell.com',
   mainEmail: 'lupomarksoftware@gmail.com',
   supportEmail: 'lupomarksoftware@gmail.com',
-  partnershipsEmail: 'lupomarksoftware@gmail.com',
-  creatorDeskEmail: 'lupomarksoftware@gmail.com',
-  verifiedRateRange: '$4.20 – $5.50 per 100 verified views',
+  currencyRate: '1 Platform Credit = €1.00 EUR',
 };

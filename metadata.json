@@ -1,6 +1,6 @@
 {
   "name": "ScopeSwell Pay",
-  "description": "Connects brands, apps, DTC products, and local businesses with everyday Instagram users to share sponsored Instagram Stories paid by real verified story views.",
-  "requestFramePermissions": [],
+  "description": "Connects brands, apps, DTC products, and local businesses with everyday Instagram users to share sponsored Instagram Stories paid by real verified accounts reached.",
+  "requestFramePermissions": ["microphone"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

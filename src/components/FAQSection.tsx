@@ -1,146 +1,156 @@
 import React, { useState } from 'react';
-import { CREATOR_FAQS, BUSINESS_FAQS } from '../data/initialData';
-import { ChevronDown, HelpCircle, Sparkles, Mail, Send, ArrowRight } from 'lucide-react';
+import { MASTER_FAQS } from '../data/initialData';
+import { HelpCircle, ChevronDown, Search, Mail, MessageSquare, ShieldCheck, Sparkles, Bug } from 'lucide-react';
 import { MAIN_EMAIL } from '../utils/notifications';
 
-export const FAQSection: React.FC = () => {
-  const [activeFaqTab, setActiveFaqTab] = useState<'creator' | 'business'>('creator');
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+interface FAQSectionProps {
+  onOpenInstagramSwitchModal: () => void;
+  onOpenFeedbackModal: () => void;
+}
 
-  const currentFaqs = activeFaqTab === 'creator' ? CREATOR_FAQS : BUSINESS_FAQS;
+export const FAQSection: React.FC<FAQSectionProps> = ({
+  onOpenInstagramSwitchModal,
+  onOpenFeedbackModal,
+}) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
 
-  const toggleFaq = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const categories = ['All', 'General', 'Creators', 'Businesses', 'Currency & Rates', 'Security'];
+
+  const filteredFaqs = MASTER_FAQS.filter((faq) => {
+    const matchesCat = selectedCategory === 'All' || faq.category === selectedCategory;
+    const matchesSearch =
+      faq.q.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      faq.a.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCat && matchesSearch;
+  });
 
   return (
-    <section id="faqs" className="py-16 md:py-24 relative">
+    <section id="faqs" className="py-16 md:py-24 bg-[#0a0e17]/30 border-t border-slate-900/80 relative backdrop-blur-[1px]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-semibold text-rose-300 mb-3">
-            <HelpCircle className="w-3.5 h-3.5" />
-            <span>Frequently Asked Questions</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-semibold text-rose-300 mb-3 shadow-sm">
+            <HelpCircle className="w-3.5 h-3.5 text-rose-400" />
+            <span>Support & Documentation Center</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-['Space_Grotesk']">
-            Got Questions? We've Got Answers
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-['Space_Grotesk']">
+            Frequently Asked Questions
           </h2>
           <p className="mt-3 text-slate-300 text-base">
-            Everything you need to know about how campaigns, view verification, and payouts work.
+            Everything you need to know about Pay-Per-Reach rates, Story Insights verification, escrow protection, and wallet payouts on <strong className="text-white">scopeswell.com</strong>.
           </p>
 
-          {/* Toggle Tab */}
-          <div className="mt-6 flex justify-center">
-            <div
-              role="tablist"
-              aria-label="FAQ Category Selector"
-              className="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800"
-            >
+          {/* Search bar */}
+          <div className="mt-6 max-w-lg mx-auto relative">
+            <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Search questions (e.g. personal account, escrow, Tallinn rate)..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-11 pr-4 py-3 rounded-2xl bg-slate-900 border border-slate-700/80 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-rose-500 transition-colors shadow-lg"
+            />
+          </div>
+
+          {/* Category Tabs */}
+          <div className="mt-4 flex flex-wrap justify-center gap-1.5">
+            {categories.map((cat) => (
               <button
-                id="faq-tab-creator"
-                role="tab"
-                aria-selected={activeFaqTab === 'creator'}
-                aria-controls="faq-accordion-panel"
-                onClick={() => {
-                  setActiveFaqTab('creator');
-                  setOpenIndex(0);
-                }}
-                className={`px-5 py-3 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                  activeFaqTab === 'creator'
-                    ? 'bg-rose-500 text-white shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  selectedCategory === cat
+                    ? 'bg-rose-500 text-white shadow'
+                    : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-white'
                 }`}
               >
-                Creator FAQs
+                {cat}
               </button>
-              <button
-                id="faq-tab-business"
-                role="tab"
-                aria-selected={activeFaqTab === 'business'}
-                aria-controls="faq-accordion-panel"
-                onClick={() => {
-                  setActiveFaqTab('business');
-                  setOpenIndex(0);
-                }}
-                className={`px-5 py-3 sm:py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                  activeFaqTab === 'business'
-                    ? 'bg-purple-600 text-white shadow-md'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                Business FAQs
-              </button>
-            </div>
+            ))}
           </div>
         </div>
 
-        {/* FAQ Accordion */}
-        <div
-          id="faq-accordion-panel"
-          role="tabpanel"
-          aria-labelledby={activeFaqTab === 'creator' ? 'faq-tab-creator' : 'faq-tab-business'}
-          className="space-y-3"
-        >
-          {currentFaqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-            const buttonId = `faq-btn-${activeFaqTab}-${index}`;
-            const panelId = `faq-panel-${activeFaqTab}-${index}`;
+        {/* FAQs List */}
+        <div className="space-y-3">
+          {filteredFaqs.map((faq, idx) => {
+            const isOpen = openIdx === idx;
             return (
               <div
-                key={faq.q}
-                className="rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden transition-all"
+                key={idx}
+                className="rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-slate-700 transition-all overflow-hidden"
               >
                 <button
-                  id={buttonId}
+                  onClick={() => setOpenIdx(isOpen ? null : idx)}
+                  className="w-full text-left p-5 flex items-center justify-between gap-4 cursor-pointer"
                   aria-expanded={isOpen}
-                  aria-controls={panelId}
-                  onClick={() => toggleFaq(index)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-800/40 transition-colors"
                 >
-                  <span className="font-bold text-white text-sm sm:text-base">{faq.q}</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-slate-800 text-rose-300 shrink-0">
+                      {faq.category}
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-white leading-snug">
+                      {faq.q}
+                    </span>
+                  </div>
                   <ChevronDown
-                    aria-hidden="true"
                     className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
-                      isOpen ? 'transform rotate-180 text-rose-400' : ''
+                      isOpen ? 'rotate-180 text-rose-400' : ''
                     }`}
                   />
                 </button>
+
                 {isOpen && (
-                  <div
-                    id={panelId}
-                    role="region"
-                    aria-labelledby={buttonId}
-                    className="px-5 pb-5 pt-1 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60"
-                  >
-                    {faq.a}
+                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 bg-slate-950/40">
+                    <p>{faq.a}</p>
+                    {faq.q.includes('personal Instagram') && (
+                      <button
+                        onClick={onOpenInstagramSwitchModal}
+                        className="mt-3 text-xs text-rose-400 hover:text-rose-300 underline font-bold flex items-center gap-1 cursor-pointer"
+                      >
+                        <span>Open 30-Second Instagram Switch Guide →</span>
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
             );
           })}
+
+          {filteredFaqs.length === 0 && (
+            <div className="text-center py-10 text-slate-400 text-sm">
+              No questions found matching "{searchQuery}".
+            </div>
+          )}
         </div>
 
-        {/* Contact Help Desk Callout */}
-        <div className="mt-10 p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-purple-950/40 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
-          <div className="space-y-1.5 max-w-lg">
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-400">
-              <Mail className="w-3.5 h-3.5" />
-              <span>Direct Support & Inquiries</span>
-            </div>
-            <h3 className="text-lg font-bold text-white font-['Space_Grotesk']">
-              Still have questions or need custom campaign terms?
-            </h3>
-            <p className="text-xs text-slate-300">
-              Reach our managing inbox directly at <strong className="text-white font-mono">{MAIN_EMAIL}</strong>. We review creator profiles and advertiser proposals daily.
+        {/* Direct Help Desk Box */}
+        <div className="mt-12 p-6 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-4">
+          <div>
+            <h3 className="text-base font-bold text-white">Found a problem, bug, or have feedback?</h3>
+            <p className="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto mt-1">
+              Help us refine the platform! You can report bugs, request features, or flag verification errors with our dedicated submission portal.
             </p>
           </div>
 
-          <a
-            href={`mailto:${MAIN_EMAIL}?subject=${encodeURIComponent('[ScopeSwell Pay] Question / Partnership Inquiry')}`}
-            className="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 hover:border-slate-600 transition-all flex items-center gap-2 cursor-pointer shrink-0 shadow-sm"
-          >
-            <Send className="w-3.5 h-3.5 text-rose-400" />
-            <span>Email {MAIN_EMAIL}</span>
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button
+              onClick={onOpenFeedbackModal}
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-white font-bold text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Bug className="w-4 h-4" />
+              <span>Submit Feedback or Report Bug</span>
+            </button>
+
+            <a
+              href={`mailto:${MAIN_EMAIL}`}
+              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs sm:text-sm border border-slate-700 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Mail className="w-4 h-4 text-rose-400" />
+              <span>Direct Email ({MAIN_EMAIL})</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

@@ -1,10 +1,17 @@
-# ScopeSwell Pay Robots.txt
+# ScopeSwell Robots.txt
 User-agent: *
 Allow: /
 
-# Sitemap Location
-Sitemap: https://scopeswell.space/sitemap.xml
+# Disallow sensitive internal paths if any
+Disallow: /api/
 
-# LLMs.txt for AI Agents
-# https://scopeswell.space/llms.txt
-# https://scopeswell.space/llms-full.txt
+# Googlebot specific directives
+User-agent: Googlebot
+Allow: /
+
+# Sitemap Location
+Sitemap: https://scopeswell.com/sitemap.xml
+
+# LLMs.txt for AI Search & Agentic Crawlers
+# https://scopeswell.com/llms.txt
+# https://scopeswell.com/llms-full.txt

@@ -1,54 +1,65 @@
-export type UserRole = 'creator' | 'business';
+export type UserRole = 'creator' | 'business' | 'admin';
 
-export type CreatorNiche =
-  | 'Coffee Shop & Cafe'
-  | 'Restaurant & Dining'
-  | 'Gym & Fitness Studio'
-  | 'Bakery & Dessert'
-  | 'Beauty Salon, Spa & Skincare'
-  | 'Boutique & Local Retail'
-  | 'Music, Festivals & Events'
-  | 'Bars, Pubs & Nightlife'
-  | 'Local Services & Experiences';
+export type CityRateKey = 'tallinn' | 'riga' | 'helsinki' | 'stockholm' | 'newyork';
 
-export type BrandCategory =
-  | 'Coffee Shop & Cafe'
-  | 'Restaurant & Dining'
-  | 'Gym & Fitness Studio'
-  | 'Bakery & Dessert'
-  | 'Beauty Salon, Spa & Skincare'
-  | 'Boutique & Local Retail'
-  | 'Music, Festivals & Events'
-  | 'Bars, Pubs & Nightlife'
-  | 'Local Services & Experiences';
+export interface CityRateInfo {
+  id: CityRateKey;
+  cityName: string;
+  country: string;
+  ratePerReach: number; // e.g. 0.03 EUR per unique account reached
+  ratePer100Reach: number; // e.g. 3.00 EUR per 100 accounts reached
+  ratePerView?: number; // legacy alias
+  ratePer100Views?: number; // legacy alias
+  serviceFeePercent: number; // 15%
+  popularNiches: string[];
+  sampleAudience: string;
+  badge?: string;
+}
 
-export type AdFormatType =
-  | 'Location Tag & Venue Check-in'
-  | 'In-Store Promo Code'
-  | 'Menu / Booking Link Sticker'
-  | 'Event Ticket Link';
+export type FeedbackType =
+  | 'Bug / Error Report'
+  | 'Feature Suggestion'
+  | 'General Feedback'
+  | 'Escrow & Payout Issue'
+  | 'Campaign & Verification Problem'
+  | 'feedback'
+  | 'bug'
+  | 'help'
+  | 'feature'
+  | 'escrow';
 
-export type PayoutMethod = 'Venmo' | 'PayPal' | 'Cash App' | 'Direct Bank Transfer' | 'Apple Cash';
+export interface FeedbackReport {
+  id: string;
+  type: FeedbackType;
+  role: 'Creator' | 'Business' | 'Visitor' | 'Other';
+  name: string;
+  email: string;
+  accountHandle?: string; // @handle or Business name
+  message: string;
+  deviceInfo?: string;
+  browser?: string;
+  pageUrl?: string;
+  createdAt: string;
+  status: 'Received' | 'In Review' | 'Resolved';
+}
 
 export interface CreatorRegistration {
   id: string;
   fullName: string;
   instagramHandle: string;
   email: string;
-  phone?: string;
   city: string;
-  country?: string;
-  neighborhood: string;
-  avgViewsRange: string;
-  estimatedAvgViews: number;
-  niches: CreatorNiche[];
-  preferredAdFormats?: AdFormatType[];
-  acceptsOnlineOnlyAds?: boolean;
-  payoutMethod: PayoutMethod;
-  payoutHandle?: string;
-  referralSource?: string;
+  neighborhood?: string;
+  avgReachRange?: string;
+  avgViewsRange?: string;
+  estimatedAvgReach?: number;
+  estimatedAvgViews?: number;
+  niches: string[];
+  preferredAdFormats: string[];
+  payoutMethod: string;
+  payoutHandle: string;
   createdAt: string;
-  queueNumber: number;
+  queueNumber?: number;
 }
 
 export interface BusinessRegistration {
@@ -56,68 +67,55 @@ export interface BusinessRegistration {
   businessName: string;
   contactName: string;
   email: string;
-  phone: string;
-  websiteOrInstagram: string;
-  category: BrandCategory;
-  brandCategory?: BrandCategory;
-  brandType: 'local' | 'event' | 'Local Spot / Store' | 'Entertainment / Music' | 'Other Brand';
+  phone?: string;
+  websiteOrInstagram?: string;
+  category: string;
   city: string;
-  neighborhood: string;
-  isGlobalOrNational?: boolean;
-  address?: string;
-  adFormat?: AdFormatType;
-  preferredAdFormats?: AdFormatType[];
+  targetStoryReach?: number;
+  targetStoryViews?: number;
   monthlyBudget: string;
-  targetStoryViews: number;
   promotionGoal: string;
-  targetAudienceNotes?: string;
   createdAt: string;
-  pilotPriority: 'Standard' | 'VIP Fast-Track';
+}
+
+export interface ProofSubmissionMock {
+  id: string;
+  campaignTitle: string;
+  businessName: string;
+  creatorHandle: string;
+  city: string;
+  ratePerReach?: number;
+  ratePerView?: number;
+  submittedReach?: number;
+  submittedViews?: number;
+  timestamp: string;
+  storyLink: string;
+  status: 'Pending Audit' | 'Verified & Paid' | 'Under Review';
+  screenshotUrl: string;
+  escrowLocked: number;
+  actualPayout: number;
+  refundToBusiness: number;
 }
 
 export interface SampleCampaign {
   id: string;
   businessName: string;
-  category: BrandCategory;
-  brandType: 'Local Spot / Store' | 'Entertainment / Music';
-  adFormat: AdFormatType;
+  category: string;
+  brandType?: string;
+  adFormat?: string;
   city: string;
   neighborhood?: string;
   isGlobalOrNational?: boolean;
   offerHeadline: string;
-  creatorPayoutPer100Views: number;
+  creatorPayoutPer100Reach?: number;
+  creatorPayoutPer100Views?: number;
   avgCreatorEarned: number;
-  verifiedViews: number;
+  verifiedReach?: number;
+  verifiedViews?: number;
   storyImage: string;
   stickerText: string;
   tagHandle: string;
   linkUrl?: string;
   promoCode?: string;
   verifiedBadge: string;
-}
-
-export interface CityDemandStat {
-  city: string;
-  country: string;
-  creatorCount: number;
-  businessCount: number;
-  status: 'Active Pilot' | 'Launching Next' | 'Fast Growing' | 'Voting Open';
-  topNiches: string[];
-}
-
-export interface StoryAdMockup {
-  id: string;
-  advertiserName: string;
-  advertiserType: 'local' | 'event';
-  handle: string;
-  avatarUrl: string;
-  backgroundImage: string;
-  adHeadline: string;
-  tagHandle: string;
-  adFormatType: AdFormatType;
-  linkUrl?: string;
-  promoCode?: string;
-  verifiedViews: number;
-  estPayout: number;
-  conversionBenefit: string;
 }
