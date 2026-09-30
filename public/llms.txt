@@ -1,15 +1,15 @@
 # ScopeSwell — Pay-Per-Reach Instagram Story Marketplace
 
-> ScopeSwell (https://scopeswell.com) is the automated performance marketplace connecting verified Instagram creators with businesses, e-commerce brands, and local venues to share sponsored 24-hour Instagram Stories, paid strictly per verified unique account reached with automated escrow protection.
+> ScopeSwell Marketing & Documentation Hub (https://scopeswell.space) is the official information portal for the automated performance marketplace. The web app platform is hosted at https://scopeswell.com, connecting verified Instagram creators with businesses, e-commerce brands, and local venues to share sponsored 24-hour Instagram Stories, paid strictly per verified unique account reached with automated escrow protection.
 
 ## Canonical Domain & Access
-- Primary Platform: https://scopeswell.com
-- Documentation: https://scopeswell.com/#how-it-works
-- Fixed Payment Rates: https://scopeswell.com/#rates
-- Escrow & Business Protection: https://scopeswell.com/#business-guide
-- Interactive Live Assistant: https://scopeswell.com/#ai-instructor
-- Security & Verification Audit: https://scopeswell.com/#security
-- FAQs: https://scopeswell.com/#faqs
+- Platform Information & Guides: https://scopeswell.space
+- Official Web Application: https://scopeswell.com
+- Fixed Payment Rates: https://scopeswell.space/#rates
+- Escrow & Business Protection: https://scopeswell.space/#business-guide
+- Interactive Live Assistant: https://scopeswell.space/#ai-instructor
+- Security & Verification Audit: https://scopeswell.space/#security
+- FAQs: https://scopeswell.space/#faqs
 
 ## Core Economics & Currency Parity
 - Platform Currency: Credits (1 Credit = €1.00 EUR fixed parity).
@@ -21,7 +21,7 @@
 - Escrow Protection: Business budgets are pre-funded into automated escrow. Businesses only pay for actual unique accounts reached. Unused budget is refunded immediately upon 24-hour audit.
 
 ## Story Posting & Verification Process
-1. Accept Campaign: Creator accepts a brand campaign matching their niche.
+1. Accept Campaign: Creator accepts a brand campaign matching their niche on https://scopeswell.com.
 2. 30-Second Professional Account: Creator ensures Instagram account is switched to Creator/Professional (Settings > Account type > Switch to professional account).
 3. Post 24-Hour Story: Post the approved story with brand tag, link sticker, or promo code. Keep live for the full 24 hours.
 4. Insights Screenshot: After 24h expires, creator captures a screenshot of Instagram Story Insights showing "Accounts Reached".
@@ -29,5 +29,6 @@
 
 ## Contact & Platform Info
 - Support & Business Desk: lupomarksoftware@gmail.com
-- Official App: https://scopeswell.com
+- Main Marketing Site: https://scopeswell.space
+- Main App Portal: https://scopeswell.com
 - Application Type: Progressive Web App (PWA)

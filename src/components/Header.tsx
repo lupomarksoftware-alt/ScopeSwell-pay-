@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
           rel="noopener noreferrer"
           className="text-amber-300 hover:text-amber-200 underline font-bold"
         >
-          {APP_CONFIG.displayDomain}
+          {APP_CONFIG.appDisplayDomain}
         </a>
         <span className="text-slate-400 hidden sm:inline">•</span>
         <span className="hidden sm:inline-flex items-center gap-1 text-emerald-300 font-mono font-semibold">

@@ -117,7 +117,7 @@ export default function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-700 text-xs font-semibold text-amber-300 mb-4 shadow-sm backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Official Platform App • {APP_CONFIG.displayDomain}</span>
+                <span>Official Platform App • {APP_CONFIG.appDisplayDomain}</span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-['Space_Grotesk']">
                 Ready to Launch or Monetize Your Stories?
@@ -134,7 +134,7 @@ export default function App() {
                   className="w-full sm:w-auto px-8 py-4 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 shadow-xl shadow-rose-500/25 transition-all flex items-center justify-center gap-2 group cursor-pointer"
                 >
                   <Smartphone className="w-4 h-4" />
-                  <span>Open {APP_CONFIG.displayDomain}</span>
+                  <span>Open {APP_CONFIG.appDisplayDomain}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </a>
 
