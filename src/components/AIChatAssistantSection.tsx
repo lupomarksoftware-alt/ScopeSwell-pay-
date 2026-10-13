@@ -15,7 +15,12 @@ import {
   TrendingUp,
   RotateCcw,
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  MessageCircle,
+  Building,
+  UserCheck,
+  HelpCircle,
+  Flame
 } from 'lucide-react';
 import { APP_CONFIG } from '../config/constants';
 
@@ -24,6 +29,7 @@ interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
   timestamp: string;
+  suggestions?: string[];
 }
 
 interface QuickTopic {
@@ -76,24 +82,22 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: 'welcome-1',
     role: 'assistant',
-    content: `👋 **Welcome to the ScopeSwell Knowledge Assistant!**
+    content: `👋 **Hello! Welcome to the ScopeSwell Live Concierge.**
 
-I have full real-time access to the ScopeSwell platform specifications, rates, escrow algorithms, and verification guidelines.
+I am your active guide to ScopeSwell's automated Pay-Per-Reach marketplace. Whether you are an everyday Instagram creator wanting guaranteed payouts, or a business seeking risk-free audience reach, I'm here to answer questions, calculate earnings, and walk you through the platform.
 
-Here are the fastest things I can help you with:
-* **Creator Payout Rates**: Fixed €0.03 – €0.08 per verified reach across European cities.
-* **Automated Escrow**: How business budgets are locked safely and unused funds are refunded automatically.
-* **1:1 Euro Parity**: Exactly how 1 Credit = €1.00 EUR with direct bank/IBAN payouts.
-* **Instagram Story Proof**: How official 24-hour Insights are verified without passwords.
-
-Click any quick topic below or type your question!`,
+How can I help you today? You can pick a path below or ask me anything directly!`,
     timestamp: 'Just now',
+    suggestions: [
+      "I'm a Creator — how much can I earn from my Stories?",
+      "I'm a Business — how does automated escrow refund me?",
+      "How do you verify reach from 24h Instagram Insights?"
+    ]
   },
 ];
 
 // Helper to render basic markdown formatting cleanly
 function renderFormattedContent(text: string) {
-  // Split into lines to parse headers, lists, and bold text
   const lines = text.split('\n');
 
   return (
@@ -101,12 +105,10 @@ function renderFormattedContent(text: string) {
       {lines.map((line, idx) => {
         const trimmed = line.trim();
 
-        // Empty line
         if (!trimmed) {
           return <div key={idx} className="h-1.5" />;
         }
 
-        // Heading 3
         if (trimmed.startsWith('### ')) {
           return (
             <h4 key={idx} className="text-base font-bold text-white mt-3 mb-1 font-['Space_Grotesk'] flex items-center gap-2">
@@ -116,7 +118,6 @@ function renderFormattedContent(text: string) {
           );
         }
 
-        // Bullet point
         if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
           const itemText = trimmed.replace(/^[\*\-]\s+/, '');
           return (
@@ -127,7 +128,6 @@ function renderFormattedContent(text: string) {
           );
         }
 
-        // Numbered list
         if (/^\d+\.\s+/.test(trimmed)) {
           const numMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
           if (numMatch) {
@@ -142,17 +142,14 @@ function renderFormattedContent(text: string) {
           }
         }
 
-        // Regular paragraph
         return <p key={idx}>{parseInlineMarkdown(trimmed)}</p>;
       })}
     </div>
   );
 }
 
-// Inline markdown parser (bold, code blocks, links)
 function parseInlineMarkdown(text: string) {
   const parts: React.ReactNode[] = [];
-  // Tokenize by `code` or **bold**
   const regex = /(\*\*[^*]+\*\*|`[^`]+`)/g;
   let lastIndex = 0;
   let match: RegExpExecArray | null;
@@ -195,12 +192,18 @@ export const AIChatAssistantSection: React.FC = () => {
   const [inputQuery, setInputQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
+  const [activePersona, setActivePersona] = useState<'all' | 'creator' | 'business'>('all');
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatScrollContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToBottom = (behavior: ScrollBehavior = 'smooth') => {
+    if (chatScrollContainerRef.current) {
+      chatScrollContainerRef.current.scrollTo({
+        top: chatScrollContainerRef.current.scrollHeight,
+        behavior,
+      });
+    }
   };
 
   useEffect(() => {
@@ -224,8 +227,7 @@ export const AIChatAssistantSection: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Build conversation history payload
-      const historyPayload = newMessages.slice(-6).map((m) => ({
+      const historyPayload = newMessages.slice(-8).map((m) => ({
         role: m.role,
         text: m.content,
       }));
@@ -245,35 +247,47 @@ export const AIChatAssistantSection: React.FC = () => {
 
       const data = await res.json();
       const replyText = data.reply || "ScopeSwell is the automated Pay-Per-Reach marketplace with 1:1 EUR parity at scopeswell.com.";
+      const returnedSuggestions = Array.isArray(data.suggestions) && data.suggestions.length > 0
+        ? data.suggestions
+        : [
+            "How do I withdraw my earnings?",
+            "What happens if my reach is lower than expected?",
+            "Can I see an example of an Insights proof screenshot?"
+          ];
 
       const assistantMessage: ChatMessage = {
         id: `assistant-${Date.now()}`,
         role: 'assistant',
         content: replyText,
         timestamp: 'Now',
+        suggestions: returnedSuggestions,
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-    } catch (err) {
-      // Graceful fallback response
+    } catch {
       const fallbackReply: ChatMessage = {
         id: `assistant-err-${Date.now()}`,
         role: 'assistant',
         content: `### ScopeSwell Key Information
 
-* **Rates**: Fixed **€0.03 – €0.08** per verified unique account reached.
-* **Escrow**: Pre-funded budgets are held safely in escrow; unused reach budget is **immediately refunded**.
+* **Rates**: Fixed **€0.03 – €0.08** per verified unique account reached across European cities.
+* **Escrow**: Pre-funded budgets are locked in automated escrow; unused reach budget is **immediately refunded**.
 * **Currency**: Strict 1:1 Euro parity (**1 Credit = €1.00 EUR**) with direct bank/IBAN payouts (minimum €20).
 * **Story Proof**: Captured from official 24-hour Instagram Story Insights ("Accounts Reached").
 
-You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
+Would you like to calculate your potential story earnings or learn how to launch a campaign?`,
         timestamp: 'Now',
+        suggestions: [
+          "Calculate earnings for 2,500 reach",
+          "How does escrow protect brand budgets?",
+          "How do I sign up on scopeswell.com?"
+        ]
       };
       setMessages((prev) => [...prev, fallbackReply]);
     } finally {
       setIsLoading(false);
       setTimeout(() => {
-        inputRef.current?.focus();
+        inputRef.current?.focus({ preventScroll: true });
       }, 100);
     }
   };
@@ -297,8 +311,17 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
     setMessages(INITIAL_MESSAGES);
     setInputQuery('');
     setTimeout(() => {
-      inputRef.current?.focus();
+      inputRef.current?.focus({ preventScroll: true });
     }, 100);
+  };
+
+  const handleSelectPersona = (persona: 'creator' | 'business') => {
+    setActivePersona(persona);
+    if (persona === 'creator') {
+      handleSendMessage("I am an Instagram creator. How does ScopeSwell work for me, what are the payout rates, and how do I get started?");
+    } else {
+      handleSendMessage("I am a business owner. How does ScopeSwell work for brands, how does escrow protect my budget, and how do I launch a campaign?");
+    }
   };
 
   return (
@@ -306,7 +329,6 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
       id="ai-chat"
       className="py-16 sm:py-24 relative overflow-hidden bg-gradient-to-b from-[#0b0f17] via-[#0e1320] to-[#070a10] border-t border-slate-800/80"
     >
-      {/* Anchor duplicate id for legacy anchor compatibility */}
       <div id="ai-instructor" className="sr-only" aria-hidden="true" />
 
       {/* Ambient background glows */}
@@ -315,21 +337,39 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-semibold mb-4 shadow-sm backdrop-blur-md">
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-semibold mb-3 backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5 text-rose-400 animate-pulse" />
-            <span>ScopeSwell Intelligence Engine</span>
+            <span>Interactive Platform Concierge</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span className="text-emerald-300 font-mono text-[11px]">Instant Answers</span>
+            <span className="text-emerald-300 font-mono text-[11px]">Conversational Mode</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-['Space_Grotesk']">
-            ScopeSwell AI Chat Assistant
+            Chat Live with the ScopeSwell Assistant
           </h2>
           <p className="mt-3 text-slate-300 text-sm sm:text-base leading-relaxed">
-            Get instant, accurate answers about Pay-Per-Reach rates, automated escrow refunds,
-            Instagram Story Insights verification, and creator payouts in Euro.
+            Have a continuous, intelligent conversation. Ask about city rates, calculate story earnings,
+            understand automated escrow refunds, or plan your next campaign.
           </p>
+
+          {/* Persona quick switch buttons */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+            <button
+              onClick={() => handleSelectPersona('creator')}
+              className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-rose-500/60 text-xs font-bold text-slate-200 hover:text-white transition-all flex items-center gap-2 cursor-pointer shadow-sm"
+            >
+              <UserCheck className="w-3.5 h-3.5 text-rose-400" />
+              <span>I'm a Creator — Calculate Earnings</span>
+            </button>
+            <button
+              onClick={() => handleSelectPersona('business')}
+              className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-emerald-500/60 text-xs font-bold text-slate-200 hover:text-white transition-all flex items-center gap-2 cursor-pointer shadow-sm"
+            >
+              <Building className="w-3.5 h-3.5 text-emerald-400" />
+              <span>I'm a Business — Escrow & Campaigns</span>
+            </button>
+          </div>
         </div>
 
         {/* Quick Topic Chips */}
@@ -337,9 +377,9 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
           <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
             <span className="flex items-center gap-1.5">
               <Bot className="w-3.5 h-3.5 text-rose-400" />
-              Popular Questions
+              Quick Starters
             </span>
-            <span className="text-slate-500 text-[11px] font-normal hidden sm:inline">Click any prompt to ask</span>
+            <span className="text-slate-500 text-[11px] font-normal hidden sm:inline">Tap to ask instantly</span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
@@ -365,7 +405,7 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
         </div>
 
         {/* Chat Box Container */}
-        <div className="rounded-2xl border border-slate-800 bg-[#0c101a]/95 backdrop-blur-xl shadow-2xl overflow-hidden flex flex-col h-[620px] sm:h-[680px]">
+        <div className="rounded-2xl border border-slate-800 bg-[#0c101a]/95 backdrop-blur-xl shadow-2xl overflow-hidden flex flex-col h-[650px] sm:h-[720px]">
           {/* Chat Window Top Bar */}
           <div className="px-4 sm:px-6 py-3.5 border-b border-slate-800/80 bg-slate-900/70 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -377,29 +417,35 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-bold text-white font-['Space_Grotesk']">ScopeSwell Assistant</h3>
+                  <h3 className="text-sm font-bold text-white font-['Space_Grotesk']">ScopeSwell Concierge</h3>
                   <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[10px] font-semibold">
-                    Online
+                    Multi-Turn Conversation
                   </span>
                 </div>
-                <p className="text-xs text-slate-400">Trained on Pay-Per-Reach rules & official economics</p>
+                <p className="text-xs text-slate-400">Remembers context • Answers with live platform math</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
+              <span className="text-[11px] text-slate-500 font-mono hidden sm:inline">
+                {messages.length} {messages.length === 1 ? 'message' : 'messages'}
+              </span>
               <button
                 onClick={handleClearChat}
                 className="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/80 transition-colors flex items-center gap-1.5 cursor-pointer"
-                title="Clear conversation"
+                title="Reset conversation"
               >
                 <Trash2 className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Clear Chat</span>
+                <span className="hidden sm:inline">Reset</span>
               </button>
             </div>
           </div>
 
           {/* Messages Scroll Area */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-5 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
+          <div
+            ref={chatScrollContainerRef}
+            className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent"
+          >
             {messages.map((message) => {
               const isUser = message.role === 'user';
               return (
@@ -420,7 +466,7 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
 
                   {/* Message Bubble */}
                   <div
-                    className={`group relative max-w-[85%] sm:max-w-[78%] rounded-2xl px-4 py-3.5 shadow-md ${
+                    className={`group relative max-w-[88%] sm:max-w-[82%] rounded-2xl px-4 py-3.5 shadow-md ${
                       isUser
                         ? 'bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 text-white rounded-tr-none'
                         : 'bg-slate-900/90 border border-slate-800/80 text-slate-100 rounded-tl-none backdrop-blur-md'
@@ -432,9 +478,32 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
                       <div>
                         {renderFormattedContent(message.content)}
 
-                        {/* Copy button for assistant responses */}
-                        <div className="mt-3 pt-2.5 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-500">
-                          <span className="text-[11px] font-mono">ScopeSwell Knowledge</span>
+                        {/* Interactive Clickable Follow-Up Suggestions */}
+                        {message.suggestions && message.suggestions.length > 0 && (
+                          <div className="mt-4 pt-3 border-t border-slate-800/70">
+                            <div className="text-[11px] font-bold text-slate-400 mb-2 flex items-center gap-1.5">
+                              <Sparkles className="w-3 h-3 text-amber-400" />
+                              <span>Suggested Follow-Ups (Tap to ask):</span>
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
+                              {message.suggestions.map((sug, sIdx) => (
+                                <button
+                                  key={sIdx}
+                                  onClick={() => handleSendMessage(sug)}
+                                  disabled={isLoading}
+                                  className="text-left px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700/80 hover:border-rose-500/50 text-xs text-rose-200 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 group/sug disabled:opacity-50"
+                                >
+                                  <span>{sug}</span>
+                                  <ArrowRight className="w-3 h-3 text-slate-500 group-hover/sug:text-rose-400 group-hover/sug:translate-x-0.5 transition-all shrink-0" />
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Copy button & metadata */}
+                        <div className="mt-3 pt-2 border-t border-slate-800/40 flex items-center justify-between text-xs text-slate-500">
+                          <span className="text-[10px] font-mono">ScopeSwell Knowledge</span>
                           <button
                             onClick={() => handleCopyMessage(message.id, message.content)}
                             className="inline-flex items-center gap-1 text-slate-400 hover:text-slate-200 transition-colors p-1 rounded hover:bg-slate-800 cursor-pointer"
@@ -472,12 +541,11 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
                     <span className="w-2 h-2 rounded-full bg-rose-400 animate-bounce [animation-delay:0.2s]" />
                     <span className="w-2 h-2 rounded-full bg-rose-400 animate-bounce [animation-delay:0.4s]" />
                   </div>
-                  <span className="text-xs text-slate-400 font-medium">Analyzing ScopeSwell knowledge...</span>
+                  <span className="text-xs text-slate-400 font-medium">Thinking and calculating response...</span>
                 </div>
               </div>
             )}
 
-            <div ref={messagesEndRef} />
           </div>
 
           {/* Input Bar */}
@@ -496,7 +564,7 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask anything (e.g. 'How much for 2,500 reach in Helsinki?')"
+                  placeholder="Ask a question or continue the conversation..."
                   disabled={isLoading}
                   className="w-full px-4 py-3 rounded-xl bg-[#080c14] border border-slate-700/80 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-all pr-10"
                 />
@@ -524,7 +592,7 @@ You can open the web application directly at **${APP_CONFIG.appUrl}**.`,
             <div className="mt-2.5 flex items-center justify-between text-[11px] text-slate-500 px-1">
               <span className="flex items-center gap-1.5">
                 <Sparkles className="w-3 h-3 text-amber-400" />
-                <span>Multi-lingual AI: Answers precisely in your language</span>
+                <span>Multi-turn conversational assistant with live memory</span>
               </span>
               <a
                 href={APP_CONFIG.appUrl}
