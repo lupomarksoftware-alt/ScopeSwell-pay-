@@ -15,7 +15,7 @@
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "microphone=*"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=()"
     Access-Control-Allow-Origin = "*"
 
 # Long-term immutable caching for static Vite chunks

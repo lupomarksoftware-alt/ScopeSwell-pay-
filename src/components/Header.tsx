@@ -64,6 +64,10 @@ export const Header: React.FC<HeaderProps> = ({
             <a href="#rates" className="hover:text-white transition-colors whitespace-nowrap">
               Rates
             </a>
+            <a href="#simulator" className="hover:text-amber-300 transition-colors flex items-center gap-1 text-slate-300 whitespace-nowrap">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>Simulator</span>
+            </a>
             <a href="#creator-guide" className="hover:text-white transition-colors whitespace-nowrap">
               Creator Guide
             </a>
@@ -73,9 +77,9 @@ export const Header: React.FC<HeaderProps> = ({
             <a href="#security" className="hover:text-white transition-colors whitespace-nowrap">
               Security
             </a>
-            <a href="#ai-instructor" className="hover:text-cyan-300 transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 whitespace-nowrap">
-              <Radio className="w-3 h-3 text-cyan-400 animate-pulse" />
-              <span className="font-bold">ScopeSwell Assistant</span>
+            <a href="#ai-chat" className="hover:text-rose-300 transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-rose-950/60 border border-rose-500/30 text-rose-300 whitespace-nowrap">
+              <Bot className="w-3.5 h-3.5 text-rose-400" />
+              <span className="font-bold">AI Chat</span>
             </a>
             <a href="#pwa-showcase" className="hover:text-white transition-colors flex items-center gap-1 whitespace-nowrap">
               <Smartphone className="w-3.5 h-3.5 text-amber-400" aria-hidden="true" />
@@ -165,15 +169,15 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="flex flex-col space-y-2 pt-2 border-t border-slate-800 text-sm">
             <a
-              href="#ai-instructor"
+              href="#ai-chat"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-3 rounded-lg bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 font-bold flex items-center justify-between"
+              className="px-3 py-3 rounded-lg bg-rose-950/40 border border-rose-500/30 text-rose-300 font-bold flex items-center justify-between"
             >
               <span className="flex items-center gap-2">
-                <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
-                <span>Live ScopeSwell Assistant (Voice & Chat)</span>
+                <Bot className="w-4 h-4 text-rose-400" />
+                <span>ScopeSwell AI Chat Assistant</span>
               </span>
-              <span className="text-[10px] bg-cyan-500/20 px-2 py-0.5 rounded font-mono">Talk</span>
+              <span className="text-[10px] bg-rose-500/20 px-2 py-0.5 rounded font-mono">Chat</span>
             </a>
             <a
               href="#rates"

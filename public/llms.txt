@@ -7,7 +7,7 @@
 - Official Web Application: https://scopeswell.com
 - Fixed Payment Rates: https://scopeswell.space/#rates
 - Escrow & Business Protection: https://scopeswell.space/#business-guide
-- Interactive Live Assistant: https://scopeswell.space/#ai-instructor
+- ScopeSwell AI Chat Assistant: https://scopeswell.space/#ai-chat
 - Security & Verification Audit: https://scopeswell.space/#security
 - FAQs: https://scopeswell.space/#faqs
 

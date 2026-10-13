@@ -108,9 +108,124 @@
   .animate-stream-up-slow,
   .animate-marquee,
   .animate-float-slow,
-  .animate-pulse-slow {
+  .animate-pulse-slow,
+  .animate-reaction-rise,
+  .animate-story-ring {
     animation-play-state: paused !important;
   }
+}
+
+/* Instagram Story Publishing & Reaction Keyframes */
+@keyframes shutterFlash {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes reactionRise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.6);
+  }
+  15% {
+    opacity: 1;
+    transform: translate3d(var(--reaction-x, 0px), -24px, 0) scale(1.15);
+  }
+  75% {
+    opacity: 0.9;
+    transform: translate3d(calc(var(--reaction-x, 0px) * 1.5), -140px, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(var(--reaction-x, 0px) * 2), -220px, 0) scale(0.85);
+  }
+}
+
+@keyframes storyRingRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ripplePulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  75% {
+    transform: scale(1.15);
+  }
+}
+
+.animate-shutter-flash {
+  animation: shutterFlash 0.45s ease-out forwards;
+}
+
+.animate-reaction-rise {
+  animation: reactionRise 2.2s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-story-ring {
+  animation: storyRingRotate 8s linear infinite;
+  will-change: transform;
+}
+
+.animate-ripple {
+  animation: ripplePulse 1.8s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.animate-heart-beat {
+  animation: heartBeat 1.4s ease-in-out infinite;
+}
+
+@keyframes laserScan {
+  0% {
+    top: 2%;
+    opacity: 0.9;
+  }
+  50% {
+    top: 96%;
+    opacity: 1;
+  }
+  100% {
+    top: 2%;
+    opacity: 0.9;
+  }
+}
+
+.animate-laser-scan {
+  animation: laserScan 2.2s ease-in-out infinite;
+  will-change: top, opacity;
 }
 
 /* Custom sleek dark scrollbar */

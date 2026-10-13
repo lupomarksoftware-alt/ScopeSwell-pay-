@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { PlatformRatesSection } from './components/PlatformRatesSection';
+import { StoryEarningsSimulator } from './components/StoryEarningsSimulator';
 import { CreatorGuideSection } from './components/CreatorGuideSection';
 import { BusinessGuideSection } from './components/BusinessGuideSection';
 import { SecuritySection } from './components/SecuritySection';
-import { AIInstructorSection } from './components/AIInstructorSection';
+import { InteractiveStoryLab } from './components/InteractiveStoryLab';
+import { AIChatAssistantSection } from './components/AIChatAssistantSection';
+import { PlatformKnowledgeTracker } from './components/PlatformKnowledgeTracker';
 import { AppShowcaseSection } from './components/AppShowcaseSection';
 import { ComparisonSection } from './components/ComparisonSection';
 import { FAQSection } from './components/FAQSection';
@@ -87,6 +90,9 @@ export default function App() {
             onOpenPWAModal={handleOpenPWA}
           />
 
+          {/* Interactive Story & Escrow Simulator */}
+          <StoryEarningsSimulator />
+
           {/* 2. Creator Guide: How to Use the App */}
           <CreatorGuideSection
             onOpenPWAModal={handleOpenPWA}
@@ -101,8 +107,11 @@ export default function App() {
           {/* 4. Security & Fraud Protection */}
           <SecuritySection />
 
-          {/* 5. Interactive AI Voice & Vision Instructor */}
-          <AIInstructorSection />
+          {/* Interactive Reach Lab Challenge */}
+          <InteractiveStoryLab />
+
+          {/* 5. ScopeSwell AI Chat Assistant */}
+          <AIChatAssistantSection />
 
           {/* 6. Three Core Roles & Architecture Overview */}
           <AppShowcaseSection
@@ -206,6 +215,9 @@ export default function App() {
           <span>Feedback & Error Report</span>
         </button>
       </div>
+
+      {/* Interactive Platform Knowledge Tracker */}
+      <PlatformKnowledgeTracker />
 
       {/* Cookie Consent */}
       <CookieConsent />

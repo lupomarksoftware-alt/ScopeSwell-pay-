@@ -41,11 +41,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   const [quickCityIndex, setQuickCityIndex] = useState(0);
   const [quickReach, setQuickReach] = useState(1500);
+  const [heroViewMode, setHeroViewMode] = useState<'story' | 'calc'>('story');
+  const [heroReactions, setHeroReactions] = useState<{ id: number; emoji: string }[]>([]);
 
   const city = OFFICIAL_CITY_RATES[quickCityIndex] || OFFICIAL_CITY_RATES[0];
   const ratePerReach = city.ratePerReach || city.ratePerView || 0.03;
   const creatorEarned = (quickReach * ratePerReach).toFixed(2);
   const totalCost = (quickReach * ratePerReach * 1.15).toFixed(2);
+
+  const activeStory = BACKGROUND_STORIES[quickCityIndex % BACKGROUND_STORIES.length] || BACKGROUND_STORIES[0];
+
+  const handleTriggerHeroReaction = (emoji: string) => {
+    const id = Date.now() + Math.random();
+    setHeroReactions((prev) => [...prev.slice(-6), { id, emoji }]);
+    setTimeout(() => {
+      setHeroReactions((prev) => prev.filter((r) => r.id !== id));
+    }, 2000);
+  };
 
   // Duplicate for seamless infinite horizontal ribbon
   const marqueeStories = [...BACKGROUND_STORIES, ...BACKGROUND_STORIES];
@@ -220,110 +232,231 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             )}
           </div>
 
-          {/* Interactive Live Rates Preview Card */}
+          {/* Interactive Live Rates & Story Phone Card */}
           <div className="lg:col-span-5">
-            <div className="relative rounded-3xl bg-slate-900/95 border-2 border-rose-500/30 p-6 sm:p-7 shadow-2xl shadow-rose-950/40 backdrop-blur-xl">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center text-white font-bold">
+            <div className="relative rounded-3xl bg-slate-900/95 border-2 border-rose-500/30 p-5 sm:p-6 shadow-2xl shadow-rose-950/40 backdrop-blur-xl">
+              {/* Header with View Mode Switcher */}
+              <div className="flex items-center justify-between pb-3.5 border-b border-slate-800">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center text-white font-bold text-xs">
                     €
                   </div>
                   <div>
-                    <h2 className="text-sm font-bold text-white">Live Pay-Per-Reach Simulator</h2>
-                    <p className="text-[11px] text-slate-400">1 Credit = €1.00 EUR (Fixed City Rates)</p>
+                    <h2 className="text-xs sm:text-sm font-bold text-white leading-tight">Live Story & Reach Preview</h2>
+                    <p className="text-[10px] text-slate-400">1 Credit = €1.00 EUR Parity</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                  Live
-                </span>
+
+                {/* Mode Tabs */}
+                <div className="flex items-center p-1 bg-slate-950 rounded-xl border border-slate-800">
+                  <button
+                    onClick={() => setHeroViewMode('story')}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
+                      heroViewMode === 'story'
+                        ? 'bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow'
+                        : 'text-slate-400 hover:text-slate-200'
+                    }`}
+                  >
+                    📱 Story Live
+                  </button>
+                  <button
+                    onClick={() => setHeroViewMode('calc')}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
+                      heroViewMode === 'calc'
+                        ? 'bg-slate-800 text-white shadow'
+                        : 'text-slate-400 hover:text-slate-200'
+                    }`}
+                  >
+                    📊 Calculator
+                  </button>
+                </div>
               </div>
 
-              <div className="mt-5 space-y-4">
-                {/* City selector tabs */}
-                <div>
-                  <label className="text-[11px] font-semibold text-slate-400 mb-1.5 block">
-                    Choose Target City / Market:
-                  </label>
-                  <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800">
-                    {OFFICIAL_CITY_RATES.slice(0, 3).map((c, idx) => (
-                      <button
-                        key={c.id}
-                        onClick={() => setQuickCityIndex(idx)}
-                        className={`py-2 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer truncate ${
-                          quickCityIndex === idx
-                            ? 'bg-rose-500 text-white shadow'
-                            : 'text-slate-400 hover:text-slate-200'
-                        }`}
-                      >
-                        {c.cityName.split(' ')[0]}
-                      </button>
-                    ))}
+              {/* City selector pills across both modes */}
+              <div className="mt-3.5">
+                <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1.5 font-semibold">
+                  <span>Selected Market:</span>
+                  <span className="text-emerald-400 font-mono font-bold">€{ratePerReach.toFixed(2)}/reach</span>
+                </div>
+                <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800">
+                  {OFFICIAL_CITY_RATES.slice(0, 3).map((c, idx) => (
+                    <button
+                      key={c.id}
+                      onClick={() => setQuickCityIndex(idx)}
+                      className={`py-1.5 px-1 rounded-lg text-xs font-bold transition-all cursor-pointer truncate ${
+                        quickCityIndex === idx
+                          ? 'bg-rose-500 text-white shadow'
+                          : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      {c.cityName.split(' ')[0]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* View Mode 1: Interactive Story Phone */}
+              {heroViewMode === 'story' && (
+                <div className="mt-3.5 space-y-3">
+                  <div className="relative aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-xl group">
+                    <img
+                      src={activeStory.image}
+                      alt={activeStory.businessName}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-transparent to-black/90 pointer-events-none" />
+
+                    {/* Floating Reaction Emojis in Hero */}
+                    <div className="absolute inset-0 pointer-events-none z-30 overflow-hidden">
+                      {heroReactions.map((r) => (
+                        <div
+                          key={r.id}
+                          className="absolute bottom-10 left-1/2 text-2xl animate-reaction-rise"
+                        >
+                          {r.emoji}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Top Segmented Story Bar & Creator Header */}
+                    <div className="relative z-10 p-3 pt-2.5">
+                      <div className="flex gap-1 mb-2">
+                        <div className="h-0.5 flex-1 bg-white rounded-full"></div>
+                        <div className="h-0.5 flex-1 bg-white/40 rounded-full"></div>
+                        <div className="h-0.5 flex-1 bg-white/40 rounded-full"></div>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="relative p-0.5 rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-purple-600 animate-story-ring">
+                            <img
+                              src={activeStory.creatorAvatar}
+                              alt=""
+                              className="w-6 h-6 rounded-full object-cover border border-black"
+                            />
+                          </div>
+                          <div>
+                            <span className="text-[11px] font-bold text-white block leading-tight">
+                              @{activeStory.creatorHandle}
+                            </span>
+                            <span className="text-[9px] text-slate-300">
+                              {city.cityName} · 24h Live
+                            </span>
+                          </div>
+                        </div>
+
+                        <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-md text-emerald-300 border border-white/20">
+                          €{ratePerReach}/reach
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Middle Stickers */}
+                    <div className="relative z-10 px-3 space-y-1.5 mt-2">
+                      <div className="inline-block px-2.5 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-white/20 text-[10px] font-bold text-white shadow">
+                        🏷️ {activeStory.tagMention}
+                      </div>
+                      <div className="block px-3 py-1 rounded-full bg-white text-slate-950 text-[10px] font-black truncate max-w-[190px] shadow">
+                        🔗 {activeStory.linkText}
+                      </div>
+                    </div>
+
+                    {/* Bottom Live Reach Bar */}
+                    <div className="absolute bottom-2 left-2 right-2 z-10 p-2.5 rounded-xl bg-slate-950/95 border border-emerald-500/50 backdrop-blur-md">
+                      <div className="flex justify-between items-center text-xs font-bold">
+                        <span className="text-emerald-400 font-mono flex items-center gap-1">
+                          <Users className="w-3.5 h-3.5" />
+                          <span>{quickReach.toLocaleString()} Accounts Reached</span>
+                        </span>
+                        <span className="text-amber-300 font-mono font-bold">€{creatorEarned} EUR</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Reaction Spawner Bar */}
+                  <div className="flex items-center justify-between gap-1.5 p-1.5 rounded-xl bg-slate-950 border border-slate-800">
+                    <span className="text-[10px] font-semibold text-slate-400 px-1">Send Reaction:</span>
+                    <div className="flex gap-1">
+                      {['❤️', '🔥', '👏', '😍', '☕'].map((emoji) => (
+                        <button
+                          key={emoji}
+                          onClick={() => handleTriggerHeroReaction(emoji)}
+                          className="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs cursor-pointer transform hover:scale-115 active:scale-95 transition-all"
+                        >
+                          {emoji}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
+              )}
 
-                {/* Slider */}
-                <div>
-                  <div className="flex justify-between text-xs font-semibold mb-1">
-                    <span className="text-slate-300 flex items-center gap-1">
-                      <Users className="w-3.5 h-3.5 text-cyan-400" />
-                      <span>Verified Accounts Reached:</span>
-                    </span>
-                    <span className="text-emerald-400 font-mono font-bold">{quickReach.toLocaleString()} accounts</span>
+              {/* View Mode 2: Calculator */}
+              {heroViewMode === 'calc' && (
+                <div className="mt-3.5 space-y-3.5">
+                  <div>
+                    <div className="flex justify-between text-xs font-semibold mb-1">
+                      <span className="text-slate-300 flex items-center gap-1">
+                        <Users className="w-3.5 h-3.5 text-cyan-400" />
+                        <span>Verified Story Reach:</span>
+                      </span>
+                      <span className="text-emerald-400 font-mono font-bold">{quickReach.toLocaleString()} accounts</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={300}
+                      max={3000}
+                      step={100}
+                      value={quickReach}
+                      aria-label="Quick verified story reach slider"
+                      onChange={(e) => setQuickReach(Number(e.target.value))}
+                      className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-rose-500"
+                    />
                   </div>
-                  <input
-                    type="range"
-                    min={300}
-                    max={3000}
-                    step={100}
-                    value={quickReach}
-                    aria-label="Quick verified story reach slider"
-                    onChange={(e) => setQuickReach(Number(e.target.value))}
-                    className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-rose-500"
-                  />
-                </div>
 
-                {/* Calculated Results */}
-                <div className="grid grid-cols-2 gap-3 pt-1">
-                  <div className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700">
-                    <p className="text-[11px] text-slate-400">Creator Earnings</p>
-                    <p className="text-2xl font-black text-emerald-400 font-mono mt-0.5">€{creatorEarned}</p>
-                    <p className="text-[10px] text-slate-400 mt-0.5">€{ratePerReach.toFixed(2)}/reach rate</p>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+                      <p className="text-[10px] text-slate-400">Creator Earnings</p>
+                      <p className="text-xl font-black text-emerald-400 font-mono mt-0.5">€{creatorEarned}</p>
+                      <p className="text-[9px] text-slate-400 mt-0.5 font-mono">€{ratePerReach.toFixed(2)}/reach</p>
+                    </div>
+                    <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+                      <p className="text-[10px] text-slate-400">Business Budget</p>
+                      <p className="text-xl font-black text-amber-300 font-mono mt-0.5">€{totalCost}</p>
+                      <p className="text-[9px] text-slate-400 mt-0.5">Incl. 15% platform fee</p>
+                    </div>
                   </div>
-                  <div className="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700">
-                    <p className="text-[11px] text-slate-400">Business Total</p>
-                    <p className="text-2xl font-black text-amber-300 font-mono mt-0.5">€{totalCost}</p>
-                    <p className="text-[10px] text-slate-400 mt-0.5">Incl. 15% platform fee</p>
+
+                  <div className="p-2.5 rounded-xl bg-purple-950/30 border border-purple-800/40 text-[11px] text-purple-200 space-y-0.5">
+                    <p className="font-bold flex items-center gap-1 text-[10px]">
+                      <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
+                      <span>Protected by ScopeSwell Escrow:</span>
+                    </p>
+                    <p className="text-[10px] text-slate-300">
+                      Funds released strictly after 24h Insights verification. Unused credits refunded instantly.
+                    </p>
                   </div>
                 </div>
+              )}
 
-                {/* Escrow Guarantee Notice */}
-                <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-800/40 text-[11px] text-purple-200 space-y-1">
-                  <p className="font-bold flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
-                    <span>Protected by ScopeSwell Escrow:</span>
-                  </p>
-                  <p className="text-slate-300">
-                    Funds released strictly after 24h Insights verification. Unused credits refunded straight back to business wallet.
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between pt-1">
-                  <a
-                    href="#rates"
-                    className="text-xs font-bold text-rose-400 hover:text-rose-300"
-                  >
-                    View All City Rates →
-                  </a>
-                  <a
-                    href={APP_CONFIG.appUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-bold text-amber-300 hover:text-amber-200 flex items-center gap-1"
-                  >
-                    <span>Open App</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
+              {/* Bottom Quick Links */}
+              <div className="flex items-center justify-between pt-3 mt-3 border-t border-slate-800">
+                <a
+                  href="#campaign-studio"
+                  className="text-xs font-bold text-rose-400 hover:text-rose-300 flex items-center gap-1"
+                >
+                  <Sparkles className="w-3 h-3" />
+                  <span>Launch Story Studio Simulator ↓</span>
+                </a>
+                <a
+                  href={APP_CONFIG.appUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-amber-300 hover:text-amber-200 flex items-center gap-1"
+                >
+                  <span>Open App</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
             </div>
           </div>
