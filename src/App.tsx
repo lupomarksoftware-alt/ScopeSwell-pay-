@@ -9,6 +9,7 @@ import { SecuritySection } from './components/SecuritySection';
 import { InteractiveStoryLab } from './components/InteractiveStoryLab';
 import { AIChatAssistantSection } from './components/AIChatAssistantSection';
 import { PlatformKnowledgeTracker } from './components/PlatformKnowledgeTracker';
+import { ScrollExperience } from './components/ScrollExperience';
 import { AppShowcaseSection } from './components/AppShowcaseSection';
 import { ComparisonSection } from './components/ComparisonSection';
 import { FAQSection } from './components/FAQSection';
@@ -218,6 +219,9 @@ export default function App() {
 
       {/* Interactive Platform Knowledge Tracker */}
       <PlatformKnowledgeTracker />
+
+      {/* Stunning Laser Top Scroll Progress & Back-To-Top HUD */}
+      <ScrollExperience />
 
       {/* Cookie Consent */}
       <CookieConsent />

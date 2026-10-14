@@ -14,9 +14,23 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenFeedbackModal,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-[#0b0f17]/90 backdrop-blur-md">
+    <header className={`sticky top-0 z-40 w-full transition-all duration-200 border-b ${
+      isScrolled
+        ? 'border-slate-800/90 bg-[#070a10]/95 backdrop-blur-xl shadow-xl shadow-black/40'
+        : 'border-slate-800/80 bg-[#0b0f17]/90 backdrop-blur-md'
+    }`}>
       {/* Top micro announcement bar */}
       <div className="bg-gradient-to-r from-rose-950/60 via-purple-950/50 to-indigo-950/60 border-b border-rose-500/20 px-4 py-1.5 text-xs text-center text-rose-200/90 flex items-center justify-center gap-2">
         <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />

@@ -10,49 +10,23 @@ const ai = new GoogleGenAI({
   },
 });
 
-const SCOPESWELL_SYSTEM_INSTRUCTION = `You are the ScopeSwell Conversational AI Concierge — an engaging, knowledgeable, and proactive expert on ScopeSwell (web app at https://scopeswell.com, documentation hub at https://scopeswell.space).
+const SCOPESWELL_SYSTEM_INSTRUCTION = `You are the ScopeSwell Smart Assistant — the official, razor-sharp platform expert for ScopeSwell (web app at https://scopeswell.com, documentation hub at https://scopeswell.space).
 
-YOUR CONVERSATIONAL STYLE & PERSONALITY:
-- Be warm, intelligent, engaging, and genuinely conversational.
-- Don't just dump raw facts: explain concepts with clear numbers, real-life examples, and simple breakdowns.
-- Format responses cleanly with Markdown: use bold text, clean bullet points, and brief calculation examples when appropriate.
-- ALWAYS end your response with an engaging, friendly follow-up question that invites the user to continue the dialogue (e.g., asking if they are a creator or a business, what city they are in, or what their typical Story reach is).
-- AT THE VERY END OF YOUR RESPONSE, on a new line, always provide 2 to 3 concise suggested follow-up questions formatted EXACTLY like this:
-[SUGGESTIONS: "Question 1?", "Question 2?", "Question 3?"]
+STRICT BREVITY & RESPONSE RULES (CRITICAL):
+- BE SHORT & SMART: Maximum 2 to 4 crisp sentences total (or 2 to 3 compact bullet points with exact numbers). Never write essays or filler paragraphs.
+- ANSWER IMMEDIATELY: State the exact rate, formula, or rule in the very first sentence. No generic intro greetings.
+- SMART PRECISION: Provide a quick mathematical example with numbers (e.g., "1,500 reach in Helsinki earns €75.00 EUR").
+- END WITH 1 SHORT QUESTION: Ask 1 friendly, brief follow-up question.
+- SUGGESTIONS TAG: On a new line at the very end, provide 2 to 3 concise suggested questions:
+[SUGGESTIONS: "Question 1?", "Question 2?"]
 
-COMPREHENSIVE SCOPESWELL KNOWLEDGE BASE:
-
-1. WHAT IS SCOPESWELL:
-- Automated Pay-Per-Reach Instagram Story marketplace connecting verified creators with businesses, DTC brands, and local venues.
-- Web Application: https://scopeswell.com
-- Documentation & Info Hub: https://scopeswell.space.
-
-2. PAY-PER-REACH VS. RAW IMPRESSIONS:
-- Impressions and views count repeated loops from the same user and bots.
-- Unique Reach (Accounts Reached in official Instagram Story Insights) counts distinct real human profiles.
-- Brands pay ONLY for verified unique humans. Duplicate loops are 100% free.
-
-3. 1:1 EURO CURRENCY PARITY:
-- 1 Platform Credit = €1.00 EUR fixed parity. No crypto, no volatility, no hidden fees.
-- Minimum Creator Payout Threshold: €20.00 EUR sent directly to bank account via SEPA/IBAN, Revolut, or digital wallet.
-
-4. CREATOR PAYOUT RATES BY CITY:
-- Tallinn & Baltics: €0.03 per verified reach (~€30 per 1,000 reach).
-- Helsinki & Nordics: €0.05 per verified reach (~€50 per 1,000 reach).
-- Stockholm & Western EU: €0.06 – €0.08 per reach (~€60–€80 per 1,000 reach).
-- Berlin / Central EU: €0.05 per reach.
-
-5. BUSINESS ESCROW & AUTOMATED REFUND GUARANTEE:
-- Campaign budget is locked in automated escrow.
-- Creator is paid strictly for verified unique reach achieved.
-- Unspent reach budget is IMMEDIATELY and AUTOMATICALLY refunded back into the business wallet.
-
-6. 5-STEP CREATOR PROCESS:
-- 1: Switch to free Instagram Creator/Professional account (Settings > Account > Switch to professional account).
-- 2: Accept campaign on scopeswell.com.
-- 3: Post approved 24h Story with brand @tag or link sticker.
-- 4: After 24h, capture screenshot of Instagram Insights showing "Accounts Reached".
-- 5: Upload screenshot. Automated audit verifies metrics and releases EUR payout.`;
+ESSENTIAL SCOPESWELL FACTS:
+1. Pay-Per-Reach: Brands pay ONLY for verified unique human accounts reached via official 24h Instagram Story Insights (duplicate loop views are free).
+2. Fixed Rates: Tallinn/Baltics = €0.03/reach (€30/1,000 reach); Helsinki/Nordics = €0.05/reach (€50/1,000 reach); Stockholm/Western EU = €0.06–€0.08/reach (€60–€80/1,000 reach); Berlin = €0.05/reach.
+3. Currency: 1 Credit = €1.00 EUR fixed 1:1 parity. Minimum creator payout: €20.00 EUR (SEPA/IBAN, Revolut, digital wallet).
+4. Automated Escrow: Business budgets are locked in escrow. Creators are paid strictly for verified reach; all unused budget is refunded immediately and automatically.
+5. 5 Steps: (1) Free 30s switch to Instagram Creator account, (2) Accept campaign on scopeswell.com, (3) Post 24h Story with brand tag, (4) Screenshot Story Insights "Accounts Reached", (5) Instant EUR escrow payout upon verification.
+6. Multilingual: Reply fluently in the user's detected language with the same short, smart conciseness.`;
 
 function parseResponseAndSuggestions(text: string): { reply: string; suggestions: string[] } {
   const match = text.match(/\[SUGGESTIONS:\s*(\[[^\]]+\]|"[^"]+"(?:,\s*"[^"]+")+|'[^']+'(?:,\s*'[^']+')+)\]/i);
@@ -78,9 +52,9 @@ function parseResponseAndSuggestions(text: string): { reply: string; suggestions
 
   if (suggestions.length === 0) {
     suggestions = [
-      "How do creator payouts work in my city?",
-      "How does the escrow refund guarantee protect brands?",
-      "What are the 5 steps to post and verify a Story?"
+      "What are the rates in my city?",
+      "How does escrow protect brand budgets?",
+      "How do I withdraw my earnings?"
     ];
   }
 
@@ -120,39 +94,20 @@ function buildValidContents(history: any[], newMessage: string) {
 function getDynamicFallback(query: string): { reply: string; suggestions: string[] } {
   const q = query.toLowerCase();
 
-  if (q.includes('rate') || q.includes('earn') || q.includes('how much') || q.includes('payout') || q.includes('money') || q.includes('tallinn') || q.includes('helsinki')) {
+  if (q.includes('rate') || q.includes('earn') || q.includes('how much') || q.includes('payout') || q.includes('money') || q.includes('tallinn') || q.includes('helsinki') || q.includes('stockholm') || q.includes('berlin')) {
     return {
-      reply: `### Fixed Pay-Per-Reach Rates & Creator Earnings
-
-On ScopeSwell, creators earn guaranteed payments based on **verified unique accounts reached** from official 24-hour Instagram Story Insights:
-
-* **Tallinn & Baltics**: **€0.03** per verified reach (*e.g., 1,500 reach = €45.00 EUR*)
-* **Helsinki & Nordics**: **€0.05** per verified reach (*e.g., 1,500 reach = €75.00 EUR*)
-* **Stockholm & Western EU**: **€0.06 – €0.08** per verified reach (*e.g., 1,500 reach = €90.00 – €120.00 EUR*)
-* **Berlin & Central EU**: **€0.05** per verified reach
-
-**Currency Rules**:
-* **1 Platform Credit = €1.00 EUR** fixed parity.
-* Minimum payout threshold is **€20.00 EUR** via SEPA bank transfer (IBAN), Revolut, or digital wallet.
-
-How many unique accounts do your Instagram Stories typically reach?`,
+      reply: `**Fixed Creator Rates per Verified Unique Reach:**\n* **Tallinn**: €0.03/reach (1,000 reach = **€30.00**)\n* **Helsinki**: €0.05/reach (1,000 reach = **€50.00**)\n* **Stockholm**: €0.06–€0.08/reach (1,000 reach = **€60–€80**)\n\nPayouts are in real EUR with a **€20.00 minimum**. How many accounts do your Stories usually reach?`,
       suggestions: [
-        "Calculate my earnings for 2,500 reach",
+        "Calculate for 2,500 reach",
         "How do I withdraw once I reach €20?",
-        "How does automated escrow protect businesses?"
+        "How does automated escrow protect brands?"
       ]
     };
   }
 
   if (q.includes('withdraw') || q.includes('bank') || q.includes('iban') || q.includes('wallet')) {
     return {
-      reply: `### Creator Withdrawals & Banking on ScopeSwell
-
-* **Minimum Payout**: **€20.00 EUR** (20 Credits) directly to SEPA bank transfer (IBAN) or Revolut.
-* **1:1 Parity**: 1 Credit equals exactly €1.00 EUR with zero hidden exchange fees.
-* **Speed**: Processed within 24–48 hours after your 24h Insights screenshot is verified.
-
-Would you like to know how to connect your Instagram Creator profile?`,
+      reply: `**Creator Withdrawals on ScopeSwell:**\n* **Minimum**: **€20.00 EUR** (20 Credits).\n* **Methods**: Direct SEPA bank transfer (IBAN), Revolut, or digital wallet.\n* **Parity**: Strict 1:1 Euro parity (€1.00 = 1 Credit) with zero exchange cuts.\n\nReady to link your account on **scopeswell.com**?`,
       suggestions: [
         "How do I connect my Instagram Creator profile?",
         "What are the rates in Helsinki and Stockholm?",
@@ -161,17 +116,21 @@ Would you like to know how to connect your Instagram Creator profile?`,
     };
   }
 
+  if (q.includes('escrow') || q.includes('refund') || q.includes('protect') || q.includes('business')) {
+    return {
+      reply: `**Automated Escrow & 100% Refunds:**\n* Brands pre-fund campaigns in escrow and pay **strictly for verified reach**.\n* If you budget €100 for 2,000 reach and achieve 1,400 (€70 creator pay), the remaining **€30 is refunded instantly** to your wallet.\n\nWould you like to test an estimate for your business?`,
+      suggestions: [
+        "What is the minimum budget to test a campaign?",
+        "How is reach verified without passwords?",
+        "Why is reach better than raw view loops?"
+      ]
+    };
+  }
+
   return {
-    reply: `### Hello! Welcome to ScopeSwell
-
-I am your ScopeSwell Concierge. ScopeSwell is the automated **Pay-Per-Reach Instagram Story marketplace** (web app at **https://scopeswell.com**, guides at **https://scopeswell.space**).
-
-* **For Creators**: Monetize your 24-hour Stories at **€0.03 to €0.08 per verified reach** with direct EUR payouts (minimum €20).
-* **For Businesses**: Budgets are held in automated escrow, and you only pay for actual unique human eyeballs—any unspent budget is **refunded immediately**.
-
-To give you the most relevant breakdown: are you exploring ScopeSwell as a **creator**, a **business owner**, or just curious?`,
+    reply: `**Welcome to ScopeSwell!**\n* **Creators**: Earn **€0.03 to €0.08 per verified reach** with direct EUR bank payouts (minimum €20).\n* **Businesses**: Pre-funded escrow guarantees you only pay for actual eyeballs—unspent budget is **refunded automatically**.\n\nAre you looking to join as a **creator** or launch a campaign as a **business**?`,
     suggestions: [
-      "I'm a Creator — how much can I make?",
+      "I'm a Creator — calculate my earnings",
       "I'm a Business — how does escrow protect my budget?",
       "What are the rates in Tallinn, Helsinki & Stockholm?"
     ]
@@ -213,8 +172,8 @@ export default async function handler(req: any, res: any) {
             contents,
             config: {
               systemInstruction: SCOPESWELL_SYSTEM_INSTRUCTION,
-              temperature: 0.65,
-              maxOutputTokens: 900,
+              temperature: 0.6,
+              maxOutputTokens: 320,
             },
           });
 

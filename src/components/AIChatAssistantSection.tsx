@@ -20,7 +20,8 @@ import {
   Building,
   UserCheck,
   HelpCircle,
-  Flame
+  Flame,
+  ArrowDown
 } from 'lucide-react';
 import { APP_CONFIG } from '../config/constants';
 
@@ -82,16 +83,16 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: 'welcome-1',
     role: 'assistant',
-    content: `👋 **Hello! Welcome to the ScopeSwell Live Concierge.**
+    content: `👋 **Welcome to ScopeSwell AI.**
 
-I am your active guide to ScopeSwell's automated Pay-Per-Reach marketplace. Whether you are an everyday Instagram creator wanting guaranteed payouts, or a business seeking risk-free audience reach, I'm here to answer questions, calculate earnings, and walk you through the platform.
+Ask me anything about **Pay-Per-Reach rates**, **automated escrow refunds**, or **24h Story verification**. I deliver exact figures and smart calculations.
 
-How can I help you today? You can pick a path below or ask me anything directly!`,
+What would you like to explore?`,
     timestamp: 'Just now',
     suggestions: [
-      "I'm a Creator — how much can I earn from my Stories?",
-      "I'm a Business — how does automated escrow refund me?",
-      "How do you verify reach from 24h Instagram Insights?"
+      "What are the rates in Tallinn, Helsinki & Stockholm?",
+      "How does escrow protect brand budgets?",
+      "How do I withdraw my creator earnings?"
     ]
   },
 ];
@@ -193,9 +194,17 @@ export const AIChatAssistantSection: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
   const [activePersona, setActivePersona] = useState<'all' | 'creator' | 'business'>('all');
+  const [showScrollBottomPill, setShowScrollBottomPill] = useState(false);
 
   const chatScrollContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleChatScroll = () => {
+    if (!chatScrollContainerRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = chatScrollContainerRef.current;
+    const isUp = scrollHeight - scrollTop - clientHeight > 80;
+    setShowScrollBottomPill(isUp);
+  };
 
   const scrollToBottom = (behavior: ScrollBehavior = 'smooth') => {
     if (chatScrollContainerRef.current) {
@@ -203,6 +212,7 @@ export const AIChatAssistantSection: React.FC = () => {
         top: chatScrollContainerRef.current.scrollHeight,
         behavior,
       });
+      setShowScrollBottomPill(false);
     }
   };
 
@@ -444,14 +454,15 @@ Would you like to calculate your potential story earnings or learn how to launch
           {/* Messages Scroll Area */}
           <div
             ref={chatScrollContainerRef}
-            className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent"
+            onScroll={handleChatScroll}
+            className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 chat-scroll-stream relative"
           >
             {messages.map((message) => {
               const isUser = message.role === 'user';
               return (
                 <div
                   key={message.id}
-                  className={`flex items-start gap-3 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
+                  className={`flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2 duration-200 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
                 >
                   {/* Avatar */}
                   <div
@@ -546,6 +557,20 @@ Would you like to calculate your potential story earnings or learn how to launch
               </div>
             )}
 
+            {/* Floating Jump to Latest Button */}
+            {showScrollBottomPill && (
+              <div className="sticky bottom-2 left-0 right-0 flex justify-center pointer-events-none z-20">
+                <button
+                  type="button"
+                  onClick={() => scrollToBottom('smooth')}
+                  className="pointer-events-auto px-3.5 py-1.5 rounded-full bg-slate-900/95 hover:bg-slate-800 border border-slate-700/80 hover:border-rose-500/60 text-xs font-semibold text-rose-300 hover:text-white shadow-xl backdrop-blur-md flex items-center gap-1.5 cursor-pointer transition-all animate-in fade-in slide-in-from-bottom-2 duration-150"
+                  title="Scroll to latest messages"
+                >
+                  <span>Jump to latest</span>
+                  <ArrowDown className="w-3.5 h-3.5 text-rose-400" />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Input Bar */}

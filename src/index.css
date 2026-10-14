@@ -3,6 +3,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -228,20 +229,45 @@
   will-change: top, opacity;
 }
 
-/* Custom sleek dark scrollbar */
+/* Custom sleek dark scrollbar with neon hover accent */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 9px;
+  height: 9px;
 }
 
 ::-webkit-scrollbar-track {
   background: #070a10;
+  border-left: 1px solid rgba(30, 41, 59, 0.4);
 }
 
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
-  border-radius: 4px;
+  border-radius: 9999px;
+  border: 2px solid #070a10;
+  transition: all 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: linear-gradient(180deg, #f43f5e 0%, #f59e0b 100%);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+/* Chat container micro-scrollbar */
+.chat-scroll-stream::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scroll-stream::-webkit-scrollbar-track {
+  background: transparent;
+  border: none;
+}
+
+.chat-scroll-stream::-webkit-scrollbar-thumb {
+  background: rgba(51, 65, 85, 0.6);
+  border-radius: 9999px;
+  border: none;
+}
+
+.chat-scroll-stream::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 63, 94, 0.6);
 }
